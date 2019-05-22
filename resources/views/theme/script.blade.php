@@ -83,7 +83,7 @@
 <script src="{{asset('assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
 
 <!--end::Page Vendors -->
-
+<script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
 <!--begin::Page Scripts -->
 <script src="{{asset('assets/app/js/dashboard.js')}}"></script>
 <script src="{{asset('assets/vendors/custom/select2/select2.js')}}"></script>

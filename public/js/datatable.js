@@ -45,10 +45,6 @@ $(document).ready(function () {
         dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
         responsive: false,
         ajax: ` ${base_url}table/banner`,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-        },
         columns: [
             {
                 title: "No",
@@ -132,6 +128,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Data Banner tidak tersedia",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -144,23 +142,38 @@ $(document).ready(function () {
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "banner"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "banner"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "banner"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "banner"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "banner"
+                }
             }
         ],
         order: [
@@ -178,11 +191,6 @@ $(document).ready(function () {
         responsive: true,
         ajax: ` ${base_url}table/unit`,
         processing: true,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-            processing: 'Tunggu lok',
-        },
         columns: [
             {
                 title: "No",
@@ -248,7 +256,7 @@ $(document).ready(function () {
                             </a>`:""}
                             ${a.delete ? `<button class="dropdown-item btn-del" data-id="${t}" data-table="banner"><i class="flaticon-delete-1"></i> Delete </button>` : ""}
                                         </div>
-                    `:'&nbsp;';
+                    `:'Loading ... ';
                 }
             },
         ],
@@ -257,6 +265,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Data Unit tidak tersedia",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -271,23 +281,38 @@ $(document).ready(function () {
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "unit"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "unit"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "unit"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "unit"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "unit"
+                }
             }
         ],
         order: [
@@ -305,11 +330,6 @@ $(document).ready(function () {
         responsive: true,
         processing: true,
         ajax: `${base_url}table/unit_file/0`,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-            processing: 'Tunggu lok',
-        },
         columns: [
             {
                 title: "No. Urut",
@@ -351,6 +371,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Data Unit tidak tersedia",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -365,23 +387,38 @@ $(document).ready(function () {
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info ',
+                attr: {
+                    "data-export": "total_sale"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent',
+                attr: {
+                    "data-export": "total_sale"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning ',
+                attr: {
+                    "data-export": "total_sale"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger ',
+                attr: {
+                    "data-export": "total_sale"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent ',
+                attr: {
+                    "data-export": "total_sale"
+                }
             }
         ],
         order: [
@@ -398,10 +435,6 @@ $(document).ready(function () {
         dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
         responsive: false,
         ajax: ` ${base_url}table/sale`,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-        },
         columns: [
             {
                 title: "No",
@@ -452,6 +485,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Data Sale tidak tersedia",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -470,23 +505,38 @@ $(document).ready(function () {
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "sale"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "sale"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "sale"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "sale"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "sale"
+                }
             }
         ],
         order: [
@@ -504,11 +554,6 @@ $(document).ready(function () {
         responsive: true,
         processing: true,
         ajax: `${base_url}table/detailuserbanner/0`,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-            processing: 'Tunggu lok',
-        },
         columns: [
             {
                 title: "No. Urut",
@@ -531,6 +576,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Tidak ada User yang mendaftar",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -579,11 +626,6 @@ $(document).ready(function () {
         responsive: true,
         processing: true,
         ajax: `${base_url}table/message`,
-        language: {
-            loadingRecords: '&nbsp;',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-            processing: 'Tunggu lok',
-        },
         columns: [
             {
                 title: "No. Urut",
@@ -625,7 +667,7 @@ $(document).ready(function () {
                             </a>`:""}
                             ${a.delete ? `<button class="dropdown-item btn-del" data-id="${t}" data-table="message"><i class="flaticon-delete-1"></i> Delete </button>` : ""}
                                         </div>
-                    `:'&nbsp;';
+                    `:'Loading ... ';
                 }
             },
         ],
@@ -634,6 +676,8 @@ $(document).ready(function () {
                 sortAscending: ": activate to sort column ascending",
                 sortDescending: ": activate to sort column descending"
             },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
             emptyTable: "Tidak ada Notifikasi ke marketing yang tersedia",
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Data tidak ditemukan",
@@ -648,23 +692,38 @@ $(document).ready(function () {
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "message"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "message"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "message"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "message"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent'
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "message"
+                }
             }
         ],
         order: [
@@ -677,7 +736,79 @@ $(document).ready(function () {
         // set the initial value
         pageLength: 10
     });
-
+    let tbllog = $('#tbllog').DataTable({
+        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: `${base_url}table/log`,
+            type: "POST"
+        },
+        columns: [
+            {
+                title: "No.",
+                data: "no",
+                sClass: "text-center",
+            },
+            {
+                title: "Description",
+                data: "activity",
+                sClass: "text-center",
+            },
+            {
+                title: "Date",
+                data: "date_created",
+                sClass: "text-center",
+            },
+        ],
+        language: {
+            aria: {
+                sortAscending: ": activate to sort column ascending",
+                sortDescending: ": activate to sort column descending"
+            },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
+            emptyTable: "Tidak ada Notifikasi ke marketing yang tersedia",
+            lengthMenu: "_MENU_ data",
+            search: "Cari:",
+            zeroRecords: "Tidak ada data yang cocok"
+        },
+        colReorder: {
+            realtime: true
+        },
+        buttons: [
+            {
+                extend: 'print',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info',
+            },
+            {
+                extend: 'copyHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent',
+            },
+            {
+                extend: 'excelHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning',
+            },
+            {
+                extend: 'csvHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger',
+            },
+            {
+                extend: 'pdfHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent',
+            }
+        ],
+        order: [
+            [0, 'asc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"] // change per page values here
+        ],
+        // set the initial value
+        pageLength: 10
+    });
 
     var tbladmin = $('#tbladmin').mDatatable({
         // datasource definition
@@ -736,7 +867,29 @@ $(document).ready(function () {
                     `;
                 }
             }
-        ]
+        ],
+        buttons: [
+            {
+                extend: 'print',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info',
+            },
+            {
+                extend: 'copyHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent',
+            },
+            {
+                extend: 'excelHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning',
+            },
+            {
+                extend: 'csvHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger',
+            },
+            {
+                extend: 'pdfHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent',
+            }
+        ],
     });
     var tblmanager = $('#tblmanager').mDatatable({
         // datasource definition
@@ -846,6 +999,14 @@ $(document).ready(function () {
                 field: "upline",
                 title: "Upline",
                 textAlign: 'center',
+            },
+            {
+                field: "profile_picture",
+                title: "Profil Marketing",
+                textAlign: 'center',
+                template: (t,e,a) => {
+                    return `${t.profile_picture ? `<a href="${base_url}uploads/marketing/${t.profile_picture}"><img width="100" src="${base_url}uploads/marketing/${t.profile_picture}" alt="profile picture marketing ${t.name}"></a>}` : `marketing ${t.name} belum mengupload foto`}`
+                }
             },
             {
                 field: "id",
@@ -1088,4 +1249,20 @@ $(document).ready(function () {
             }
         })
     });
+    $(document).on('click','.btn-export',function (e) {
+        const data_export = $(this).data('export');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url:`${base_url}export`,
+            data : {
+                data_export:data_export
+            },
+            error: xhr => {
+                console.log(xhr.responseJSON.message);
+            }
+        })
+    })
 });

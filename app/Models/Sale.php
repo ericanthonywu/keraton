@@ -23,7 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string|null $fotokerja
  * @property string|null $fotospt
  * @property int $paid_status
- * @property int|null $cancel_status
+ * @property string|null $pdf_name
  * @property int $created_by
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotokonsumen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotoktp($value)
@@ -33,7 +33,6 @@ class Sale extends Eloquent
 {
     protected $hidden = [
         'sales_id',
-        'pdf_name',
     ];
     protected $casts = [
         'created_by'=>'int',

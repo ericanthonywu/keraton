@@ -10,15 +10,34 @@ use App\Models\BannerParticipant;
 use App\Models\Unit;
 use App\Models\UnitFile;
 use App\Models\Message;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
+use App\Models\Logging;
 use App\User;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Session;
 
 class apiandroid extends Controller
 {
+    public function log($desc)
+    {
+        $user = '';
+        switch (Session::get('level')) {
+            case 3:
+                $user =  "<b>". Session::get('users') . "</b> (Super Admin)";
+                break;
+            case 2:
+                $user =  "<b>". Session::get('users') . "</b> (Admin)";
+                break;
+            case 1:
+                $user = "<b>".  Session::get('users') . "</b> (Manager)";
+                break;
+        }
+
+        $log = new Logging();
+        $log->activity = $user . $desc;
+        $log->save();
+    }
     function Image($param, $file)
     {
         return url("uploads/$param/$file");
@@ -112,6 +131,9 @@ class apiandroid extends Controller
             }
             unset($req['apiKey']);
             $req['id'] = $r->salesid;
+            $req['pdf_name'] = md5(bcrypt($r->nama."_".Str::random(10).time()));
+            $namaunit = Unit::find($r->unit)['namea'];
+            $this->log(" submit new sale : <b>$r->nama - $namaunit</b>");
             $id = Sale::create($req);
             foreach ($id as $v) {
                 for ($x = 0; $x < count($arrfile); $x++) {
@@ -140,6 +162,7 @@ class apiandroid extends Controller
             }
             unset($req['apiKey']);
             unset($req['salesid']);
+            $this->log(" update sale : <b>$r->nama - $namaunit</b>");
             Sale::find($r->salesid)->update($req);
             $data_id = Sale::find($r->salesid);
             foreach ($data_id as $v) {
@@ -230,8 +253,14 @@ class apiandroid extends Controller
         }
         if($r->has('nama')){
             $update = User::find($datatoken['user']);
-            $update->name = $r->nama;
-            $update->save();
+            if($update['nama'] !== $r->nama){
+                if (!$update->exists()) {
+                    $update->nama = $r->nama;
+                    $update->save();
+                } else {
+                    return $this->response(0, 'Nama Sudah Tersedia',new \stdClass());
+                }
+            }
         }
         if($r->has('email')){
             $update = User::find($datatoken['user']);
@@ -240,7 +269,7 @@ class apiandroid extends Controller
                     $update->email = $r->email;
                     $update->save();
                 } else {
-                    return $this->response(1, 'Email Sudah Tersedia',new \stdClass());
+                    return $this->response(0, 'Email Sudah Tersedia',new \stdClass());
                 }
             }
         }

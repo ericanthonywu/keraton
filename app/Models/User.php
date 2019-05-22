@@ -20,6 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $lat
  * @property string $long
  * @property string $nohp
+ * @property string $profilepicture
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @package App\Models
@@ -52,12 +53,14 @@ class User extends Eloquent
 
 	protected $fillable = [
 		'name',
+//		'nickname',
 		'email',
 		'nohp',
 		'password',
 		'remember_token',
         'lat',
         'long',
+        'profile_picture',
         "created_by"
 	];
 }

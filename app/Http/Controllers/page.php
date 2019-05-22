@@ -149,11 +149,13 @@ class page extends Controller
             "marketing"=>$data
         ]);
     }
-    function pdf(){
-//        $data_sale = Sale::where('pdf_name',$data)->first();
-
+    function pdf($data){
+        $data_sale = Sale::where('pdf_name',$data)->first();
+        $data_unit = Unit::find($data_sale['unit']);
+        $data_sale['namaunit'] = $data_unit['nama'];
+        $data_sale['lokasiunit'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'].", $data_unit[lokasi_text]";
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.tandaterima');
+        $pdf->loadView('pdf.tandaterima',$data_sale);
         return $pdf->download('invoice.pdf');
     }
 }

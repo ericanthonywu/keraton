@@ -39,7 +39,7 @@ class UnitFile extends Eloquent
     protected $table = 'unit_file';
 
     protected $casts = [
-        'userID' => 'int',
+        'unitID' => 'int',
         'order' =>'int'
     ];
 

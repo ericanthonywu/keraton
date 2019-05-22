@@ -17,11 +17,12 @@ Route::get('/logout', "auth@logout");
 Route::get('/command/{command}', function ($command) {
     Artisan::call($command);
 });
-Route::get('/invoice',"page@pdf");
+Route::get('/invoice/{data}',"page@pdf");
 Route::view('/showinvoice',"pdf.tandaterima");
 Route::post('/getsession', 'auth@getsession');
 Route::post('/forgotpassword', "auth@forgotpassword");
 Route::middleware('authcheck')->group(function () {
+    Route::post('/export','crud@export');
     Route::view('/dashboard', 'index');
     Route::post('/delete/{table}', "crud@delete");
     Route::post('/table/generateedit', 'jsontable@showedit');
@@ -93,5 +94,7 @@ Route::middleware('authcheck')->group(function () {
     Route::post('/action/message', 'crud@tambah_message');
     Route::post('/action/update/message', 'crud@edit_message');
     Route::get('/table/message', 'jsontable@message');
+
+    Route::get('/table/log','jsontable@log');
 });
 

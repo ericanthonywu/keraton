@@ -4,13 +4,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Keraton invoice</title>
-
-    <!--end::Web font -->
-{{--    <link href="{{asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />--}}
-
-{{--    <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->--}}
-{{--    <link href="{{asset('assets/demo/demo12/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />--}}
-<!--begin::Global Theme Styles -->
     <style>
         .container {
             padding-right: 15px;
@@ -128,7 +121,7 @@
 <div class="container">
     <div class="row">
         <div class="col-4"><span class="m--icon-font-size-lg2">Sudah diterima dari</span></div>
-        <div class="col-4"><span class="m--icon-font-size-lg2">: (nama)</span></div>
+        <div class="col-4"><span class="m--icon-font-size-lg2">: {!! $data_sale['nama'] !!}</span></div>
         <div class="col-4">&nbsp;</div>
     </div>
 </div>
@@ -137,7 +130,7 @@
 <div class="container">
     <div class="row">
         <div class="col-4"><span class="m--icon-font-size-lg2">Uang sebesar</span></div>
-        <div class="col-4"><span class="m--icon-font-size-lg2">: (harga)</span></div>
+        <div class="col-4"><span class="m--icon-font-size-lg2">: Rp. 1.000.000</span></div>
         <div class="col-4">&nbsp;</div>
     </div>
 </div>
@@ -146,7 +139,7 @@
 <div class="container">
     <div class="row">
         <div class="col-4"><span class="m--icon-font-size-lg2">Sudah diterima dari</span></div>
-        <div class="col-7"><span class="m--icon-font-size-lg2">: Booking Fee, Unit (nama_unit) - (lokasi_unit) </span>
+        <div class="col-7"><span class="m--icon-font-size-lg2">: Booking Fee, Unit {!! $data_sale['nama_unit'] !!} - {!! $data_sale['lokasi_unit'] !!} </span>
         </div>
         <div class="col-1">&nbsp;</div>
     </div>

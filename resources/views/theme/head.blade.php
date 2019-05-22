@@ -39,6 +39,7 @@
     <link rel="shortcut icon" href="{{asset('assets/logo/Keraton-logo.png')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/tableexport@5.2.0/dist/css/tableexport.min.css">
 {{--    <link rel="stylesheet" href="{{url('assets/select2/css/select2.min.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/select2/css/select2-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.carousel.css')}}">

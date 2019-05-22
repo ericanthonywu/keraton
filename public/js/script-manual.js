@@ -83,14 +83,14 @@ $(document).ready(function () {
     autosize.update(demo2);
 
     $('.m-aside-menu .m-menu__nav>.m-menu__item>.m-menu__link').css('padding', '9px 10px')
-
-    // $('#m_aside_left_minimize_toggle').click(function () {
-    //     if ($(this).hasClass('m-brand__toggler--active')) {
-    //         $('.m-brand, .m-aside-left').css('width', '')
-    //     } else {
-    //         $('.m-brand, .m-aside-left').css('width', '200px')
-    //     }
-    // });
+    $('.m-brand').css('width','');
+    $('#m_aside_left_minimize_toggle').click(function () {
+        if ($(this).hasClass('m-brand__toggler--active')) {
+            $('.m-brand, .m-aside-left').css('width', '')
+        } else {
+            $('.m-brand, .m-aside-left').css('width', '200px')
+        }
+    });
     $('#m_aside_left .m-menu__link-text').css('color', '#fff').css('font-size', '11px')
     $(document).on('click', '.btndetailuserbanner', function (e) {
         const id = $(this).data('id')
@@ -125,7 +125,6 @@ $(document).ready(function () {
                 const sale = res[0]
                 const unit = res[1]
                 const unit_file = res[2]
-                console.log(sale)
 
                 $('#detailtotalsales .modal-body #namakonsumen').html(": <b>" + sale.nama + "</b>")
                 $('#detailtotalsales .modal-body #nohpkonsumen').html(": <b>" + sale.nohp + "</b>")
@@ -150,7 +149,6 @@ $(document).ready(function () {
                         .trigger('refresh.owl.carousel');
                 })
 
-                console.log(id)
                 $('#detailtotalsales .modal-body .aksisales').attr('data-id',Number(id))
             },
             error: xhr => {

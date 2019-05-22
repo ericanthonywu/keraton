@@ -11,6 +11,7 @@ use App\Models\UnitFile;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\LokasiUnit;
+use App\Models\Logging;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -224,7 +225,7 @@ class jsontable extends Controller
             $data_unit = $data->get();
         }
         $No = 1;
-        $sale = Sale::where('unit', 0);
+        $sale = Sale::where('unit', 0)->orderByDesc('sales_id');
         foreach ($data_unit as $k => $v) {
             $sale->orWhere('unit', $data_unit[$k]['id']);
         }
@@ -251,7 +252,7 @@ class jsontable extends Controller
         foreach ($data_sale as $data) {
             $data_sale['dibuat_oleh'] = User::find($data_sale['created_by'])['name'];
         }
-        $data_foto_unit = UnitFile::where('unitID', $data_unit['sales_id'])->get();
+        $data_foto_unit = UnitFile::where('unitID', $data_unit['id'])->get();
         return response()->json([
             $data_sale, $data_unit, $data_foto_unit
         ]);
@@ -289,6 +290,18 @@ class jsontable extends Controller
         }
         return response()->json([
             "data" => $data_message
+        ]);
+    }
+    function log(){
+        $data = Logging::orderByDesc('id')->get();
+        $no = 1;
+        foreach ($data as $k => $v){
+            $data[$k]['date_created'] = $v['created_at']->format('D, d M Y H:i');
+            $data[$k]['no'] = $no;
+            $no++;
+        }
+        return response()->json([
+            "data"=>$data
         ]);
     }
 }
