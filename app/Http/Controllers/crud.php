@@ -23,7 +23,7 @@ use Validator;
 
 class crud extends Controller
 {
-    public function push_notification($body, $title, $token)
+    public function push_notification($body, $title, $data, $token)
     {
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
@@ -33,13 +33,11 @@ class crud extends Controller
             'sound' => true,
         ];
 
-        $extraNotificationData = ["message" => $notification, "moredata" => 'dd'];
-
         $fcmNotification = [
             //'registration_ids' => $tokenList, //multple token array
             'to' => $token, //single token
             'notification' => $notification,
-            'data' => $extraNotificationData
+            'data' => $data
         ];
 
         $headers = [
@@ -189,7 +187,7 @@ class crud extends Controller
         $req['password'] = bcrypt($req['password']);
         $req['created_by'] = $r->created_by ? $r->created_by : (int)Session::get('userID');
         User::create($req);
-        $this->log(" create (" . $this->lvl($r->level) .") : <b>". $r->name."</b>");
+        $this->log(" create (marketing) : <b>". $r->name."</b>");
     }
 
     function edit_marketing(Request $r)
@@ -214,7 +212,7 @@ class crud extends Controller
         }
         $data->created_by = $r->created_by ? $r->created_by : (int)Session::get('userID');
         $data->save();
-        $this->log(" update (" . $this->lvl($r->level) .") : <b>". $r->name."</b>");
+        $this->log(" update (marketing) : <b>". $r->name."</b>");
     }
 
     function tambah_banner(Request $r)
@@ -381,10 +379,13 @@ class crud extends Controller
             $req['push_notif'] = empty($r->push_notif) ? 0 : 1;
             if ($req['push_notif']) {
                 $devicetoken = Token::where('user', $data)->first()['devicetoken'];
-                $this->push_notification($r->pesan, $r->judul, $devicetoken);
+                $this->push_notification($r->pesan, $r->judul,[
+                    "action"=>"open_inbox",
+                ], $devicetoken);
             }
             Message::create($req);
-            $this->log(" send message to <b>$data</b> (marketing) : <b>$r->judul</b>");
+            $user = User::find($data)['name'];
+            $this->log(" send message to <b>$user</b> (marketing) : <b>$r->judul</b>");
         }
     }
 
@@ -430,7 +431,9 @@ class crud extends Controller
                 $message->created_by = Session::get('userID');
                 $message->save();
                 $devicetoken = Token::where('user', $user)->first()['devicetoken'];
-                $this->push_notification("Sale anda telah di tunda oleh " . Session::get('users'), 'Sale anda di tunda', $devicetoken);
+                $this->push_notification("Sale anda telah di tunda oleh " . Session::get('users'), 'Sale anda di tunda',[
+                    "action"=>"open_inbox"
+                ], $devicetoken);
                 break;
             case 5:
                 $message = new Message();
@@ -441,7 +444,9 @@ class crud extends Controller
                 $message->created_by = Session::get('userID');
                 $message->save();
                 $devicetoken = Token::where('user', $user)->first()['devicetoken'];
-                $this->push_notification("Sale anda telah dibatalkan oleh " . Session::get('users'), 'Sale anda dibatalkan', $devicetoken);
+                $this->push_notification("Sale anda telah dibatalkan oleh " . Session::get('users'), 'Sale anda dibatalkan',[
+                    "action"=>"open_inbox"
+                ], $devicetoken);
                 break;
         }
 

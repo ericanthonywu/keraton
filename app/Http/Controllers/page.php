@@ -10,8 +10,10 @@ use App\Models\UnitFile;
 use App\Models\LokasiUnit;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Logging;
 use Barryvdh\DomPDF\PDF;
 //use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
 
 class page extends Controller

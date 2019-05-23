@@ -261,19 +261,19 @@ class jsontable extends Controller
     function message()
     {
         if (\Session::get('level') == 3) {
-            $data_message = Message::all();
+            $data_message = Message::orderByDesc('id')->get();
         } else if (\Session::get('level') == 2) {
             $data_manager = Admin::where([
                 "level" => 1,
                 "created_by" => \Session::get('userID'),
             ])->get();
-            $data = Message::where('created_by', \Session::get('userID'));
+            $data = Message::where('created_by', \Session::get('userID'))->orderByDesc('id');
             foreach ($data_manager as $k => $v) {
                 $data->orWhere('created_by', $v['id']);
             }
             $data_message = $data->get();
         } else {
-            $data = Message::where('created_by', \Session::get('userID'));
+            $data = Message::where('created_by', \Session::get('userID'))->orderByDesc('id');;
             $admin = Admin::find(\Session::get('userID'))['created_by'];
             $data->orWhere('created_by', $admin);
             $data_message = $data->get();
@@ -292,16 +292,24 @@ class jsontable extends Controller
             "data" => $data_message
         ]);
     }
-    function log(){
-        $data = Logging::orderByDesc('id')->get();
+
+    function log(Request $r)
+    {
+        $data = $r->search ?
+            Logging::orderByDesc('id')->limit($r->limit)->offset($r->offset)->whereRaw("match (activity) AGAINST ('$r->search*' IN BOOLEAN MODE)")->get()
+            :
+            Logging::orderByDesc('id')->limit($r->limit)->offset($r->offset)->get();
         $no = 1;
-        foreach ($data as $k => $v){
+        foreach ($data as $k => $v) {
             $data[$k]['date_created'] = $v['created_at']->format('D, d M Y H:i');
             $data[$k]['no'] = $no;
             $no++;
         }
-        return response()->json([
-            "data"=>$data
-        ]);
+        return response()->json($data);
+    }
+
+    function totallog()
+    {
+        return Logging::all()->count();
     }
 }

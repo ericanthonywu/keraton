@@ -19,18 +19,21 @@ use Session;
 
 class apiandroid extends Controller
 {
-    public function log($desc)
+    public function log($desc,$apikey)
     {
+        $datatoken = Token::where("token_old", $apikey)->orWhere('token_new', $apikey)->first();
+        $marketing = User::find($datatoken['user'])['name'];
+
         $user = '';
         switch (Session::get('level')) {
             case 3:
-                $user =  "<b>". Session::get('users') . "</b> (Super Admin)";
+                $user =  "<b>$marketing</b> (Marketing)";
                 break;
             case 2:
-                $user =  "<b>". Session::get('users') . "</b> (Admin)";
+                $user =  "<b>$marketing</b> (Marketing)";
                 break;
             case 1:
-                $user = "<b>".  Session::get('users') . "</b> (Manager)";
+                $user = "<b>$marketing</b> (Marketing)";
                 break;
         }
 
@@ -132,8 +135,8 @@ class apiandroid extends Controller
             unset($req['apiKey']);
             $req['id'] = $r->salesid;
             $req['pdf_name'] = md5(bcrypt($r->nama."_".Str::random(10).time()));
-            $namaunit = Unit::find($r->unit)['namea'];
-            $this->log(" submit new sale : <b>$r->nama - $namaunit</b>");
+            $namaunit = Unit::find($r->unit)['name'];
+            $this->log(" submit new sale : <b>$r->nama - $namaunit</b>",$r->apiKey);
             $id = Sale::create($req);
             foreach ($id as $v) {
                 for ($x = 0; $x < count($arrfile); $x++) {
@@ -162,7 +165,8 @@ class apiandroid extends Controller
             }
             unset($req['apiKey']);
             unset($req['salesid']);
-            $this->log(" update sale : <b>$r->nama - $namaunit</b>");
+            $namaunit = Unit::find($r->unit)['name'];
+            $this->log(" update sale : <b>$r->nama - $namaunit</b>",$r->apiKey);
             Sale::find($r->salesid)->update($req);
             $data_id = Sale::find($r->salesid);
             foreach ($data_id as $v) {

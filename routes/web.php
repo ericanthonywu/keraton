@@ -72,10 +72,7 @@ Route::middleware('authcheck')->group(function () {
     Route::post('/action/unit_file', 'crud@tambah_foto_unit');
 
     Route::get('/marketing', 'page@marketing');
-    Route::view('/exportdata', 'page.exportdata.index');
-    Route::view('/managerules', 'page.managerules.index');
     Route::view('/totalsales', 'page.totalsales.index');
-    Route::view('/transactionlog', 'page.transactionlog.index');
 
     Route::get('/chart/sales', 'chart@sales');
     Route::get('/chart/unit', 'chart@unit');
@@ -95,6 +92,8 @@ Route::middleware('authcheck')->group(function () {
     Route::post('/action/update/message', 'crud@edit_message');
     Route::get('/table/message', 'jsontable@message');
 
-    Route::get('/table/log','jsontable@log');
+    Route::view('/transactionlog', 'page.transactionlog.index');
+    Route::post('/table/log', 'jsontable@log');
+    Route::get('/table/totallog', 'jsontable@totallog');
 });
 

@@ -256,7 +256,7 @@ $(document).ready(function () {
                             </a>`:""}
                             ${a.delete ? `<button class="dropdown-item btn-del" data-id="${t}" data-table="banner"><i class="flaticon-delete-1"></i> Delete </button>` : ""}
                                         </div>
-                    `:'Loading ... ';
+                    `:'&nbsp;';
                 }
             },
         ],
@@ -736,79 +736,6 @@ $(document).ready(function () {
         // set the initial value
         pageLength: 10
     });
-    let tbllog = $('#tbllog').DataTable({
-        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
-        responsive: true,
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: `${base_url}table/log`,
-            type: "POST"
-        },
-        columns: [
-            {
-                title: "No.",
-                data: "no",
-                sClass: "text-center",
-            },
-            {
-                title: "Description",
-                data: "activity",
-                sClass: "text-center",
-            },
-            {
-                title: "Date",
-                data: "date_created",
-                sClass: "text-center",
-            },
-        ],
-        language: {
-            aria: {
-                sortAscending: ": activate to sort column ascending",
-                sortDescending: ": activate to sort column descending"
-            },
-            loadingRecords: 'Loading ... ',
-            processing: '<div class="m-loader m-loader--brand"></div>',
-            emptyTable: "Tidak ada Notifikasi ke marketing yang tersedia",
-            lengthMenu: "_MENU_ data",
-            search: "Cari:",
-            zeroRecords: "Tidak ada data yang cocok"
-        },
-        colReorder: {
-            realtime: true
-        },
-        buttons: [
-            {
-                extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info',
-            },
-            {
-                extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent',
-            },
-            {
-                extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning',
-            },
-            {
-                extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger',
-            },
-            {
-                extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent',
-            }
-        ],
-        order: [
-            [0, 'asc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"] // change per page values here
-        ],
-        // set the initial value
-        pageLength: 10
-    });
 
     var tbladmin = $('#tbladmin').mDatatable({
         // datasource definition
@@ -1005,7 +932,7 @@ $(document).ready(function () {
                 title: "Profil Marketing",
                 textAlign: 'center',
                 template: (t,e,a) => {
-                    return `${t.profile_picture ? `<a href="${base_url}uploads/marketing/${t.profile_picture}"><img width="100" src="${base_url}uploads/marketing/${t.profile_picture}" alt="profile picture marketing ${t.name}"></a>}` : `marketing ${t.name} belum mengupload foto`}`
+                    return `${t.profile_picture ? `<a href="${base_url}uploads/marketing/${t.profile_picture}"><img width="100" src="${base_url}uploads/marketing/${t.profile_picture}" alt="profile picture marketing ${t.name}"></a>` : `marketing ${t.name} belum mengupload foto`}`
                 }
             },
             {

@@ -22,4 +22,15 @@ $(document).ready(function () {
             return markup
         },
     });
+    $('.select2').select2({
+        width: '100%',
+        language: {
+            noResults: function () {
+                return 'Tidak ada jumlah yang tersedia'
+            },
+        },
+        escapeMarkup: markup => {
+            return markup
+        },
+    })
 })

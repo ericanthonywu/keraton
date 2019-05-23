@@ -3,15 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Token;
+use App\Models\Logging;
 use App\User;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Session;
 use Validator;
 
 class oauthandroid extends Controller
 {
+    public function log($desc,$apikey)
+    {
+        $user = '';
+        if($apikey !== null) {
+            $datatoken = Token::where("token_old", $apikey)->orWhere('token_new', $apikey)->first();
+            $marketing = User::find($datatoken['user'])['name'];
+
+            switch (Session::get('level')) {
+                case 3:
+                    $user = "<b>$marketing</b> (Marketing)";
+                    break;
+                case 2:
+                    $user = "<b>$marketing</b> (Marketing)";
+                    break;
+                case 1:
+                    $user = "<b>$marketing</b> (Marketing)";
+                    break;
+            }
+        }
+
+        $log = new Logging();
+        $log->activity = $user . $desc;
+        $log->save();
+        return true;
+    }
     function response($status, $message, $data, $header = null)
     {
         return response()->json([
@@ -77,6 +104,7 @@ class oauthandroid extends Controller
         if ($data && Hash::check($r->password, $data->password)) {
             $token = $this->generatetoken($data->id);
             if ($token) {
+                $this->log("<b>$r->name</b> (marketing) logged in",null);
                 return $this->response(1, 'Berhasil Login', [
                     "apiKey" => $token,
                 ]);
@@ -90,7 +118,9 @@ class oauthandroid extends Controller
 
     function logout(Request $r)
     {
-        $datany = Token::where('token_old',$r->apiKey)->orWhere('token_new',$r->apiKey);
+        $datany = Token::where('token_old',$r->apiKey)->orWhere('token_new',$r->apiKey)->first();
+        $marketing = User::find($datany['user'])['name'];
+        $this->log("<b>$marketing</b> (marketing) has logged out",null);
         if ($datany->exists()) {
             $data = $datany->first();
             $data->first();

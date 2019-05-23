@@ -95,7 +95,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--begin: Datatable -->
                         <table class="m_datatable" id="tblmanager"></table>
                         <!--end: Datatable -->
-                        <div class="modal fade" id="fedit" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="fedit" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -145,7 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="ftambah" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="ftambah" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
