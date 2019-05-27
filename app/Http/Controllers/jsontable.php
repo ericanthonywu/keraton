@@ -312,4 +312,20 @@ class jsontable extends Controller
     {
         return Logging::all()->count();
     }
+    function alllog(){
+        $data =  Logging::orderByDesc('id')->get();
+        $no = 1;
+        foreach ($data as $k => $v) {
+            $act = str_replace('<b>','',$v['activity']);
+            $data[$k]['No'] = $no;
+            $data[$k]['Activity'] = str_replace('</b>','',$act);
+            $data[$k]['Tanggal Dibuat'] = $v['created_at']->format('D, d M Y H:i');
+            unset($data[$k]['updated_at']);
+            unset($data[$k]['activity']);
+            unset($data[$k]['id']);
+            unset($data[$k]['created_at']);
+            $no++;
+        }
+        return $data;
+    }
 }

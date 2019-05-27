@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
                     <div class="mr-auto">
-                        <h3 class="m-subheader__title m-subheader__title--separator">Form Kategori barang</h3>
+                        <h3 class="m-subheader__title m-subheader__title--separator">Transaction Log</h3>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Data Admin
+                                    Log Form Data
                                 </h3>
                             </div>
                         </div>
@@ -86,15 +86,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="col-xl-4 order-1 order-xl-2">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary">Clear & Export</button>
+                                        <button type="button" class="btn btn-primary" id="clearexport">Clear & Export</button>
                                         <button type="button"
                                                 class="btn btn-primary dropdown-toggle dropdown-toggle-split"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item">Clear Only</a>
-                                            <a class="dropdown-item">Export Only</a>
+                                            <a class="dropdown-item" id="clear">Clear Only</a>
+                                            <a class="dropdown-item" id="export">Export Only</a>
                                         </div>
                                     </div>
                                     <div class="m-separator m-separator--dashed d-xl-none"></div>

@@ -46,46 +46,9 @@ class chart extends Controller
             }
         }
         return "[$a]";
-//        return "
-//        [{
-//    \"Unit\": \"USA\",
-//    \"visits\": 3025
-//}, {
-//    \"Unit\": \"China\",
-//    \"visits\": 1882
-//}, {
-//    \"Unit\": \"Japan\",
-//    \"visits\": 1809
-//}, {
-//    \"Unit\": \"Germany\",
-//    \"visits\": 1322
-//}, {
-//    \"Unit\": \"UK\",
-//    \"visits\": 1122
-//}, {
-//    \"Unit\": \"France\",
-//    \"visits\": 1114
-//}, {
-//    \"Unit\": \"India\",
-//    \"visits\": 984
-//}, {
-//    \"Unit\": \"Spain\",
-//    \"visits\": 711
-//}, {
-//    \"Unit\": \"Netherlands\",
-//    \"visits\": 665
-//}, {
-//    \"Unit\": \"Russia\",
-//    \"visits\": 580
-//}, {
-//    \"Unit\": \"South Korea\",
-//    \"visits\": 443
-//}, {
-//    \"Unit\": \"Canada\",
-//    \"visits\": 441
-//}]";
     }
     function kinerjasales(){
+
         return "[{
             \"Sales\": \"USA\",
             \"visits\": 3025

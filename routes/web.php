@@ -36,6 +36,12 @@ Route::middleware('authcheck')->group(function () {
         Route::post('/table/lokasiunit', 'jsontable@lokasiunit');
         Route::post('/action/lokasiunit', 'crud@tambah_lokasiunit');
         Route::post('/action/update/lokasiunit', 'crud@edit_lokasiunit');
+
+        Route::view('/transactionlog', 'page.transactionlog.index');
+        Route::post('/table/log', 'jsontable@log');
+        Route::get('/table/totallog', 'jsontable@totallog');
+        Route::get('/table/alllog','jsontable@alllog');
+        Route::post('/clearlog','crud@clearlog');
     });
     Route::middleware('admincheck')->group(function () {
         Route::post('/table/manager', 'jsontable@manager');
@@ -92,8 +98,5 @@ Route::middleware('authcheck')->group(function () {
     Route::post('/action/update/message', 'crud@edit_message');
     Route::get('/table/message', 'jsontable@message');
 
-    Route::view('/transactionlog', 'page.transactionlog.index');
-    Route::post('/table/log', 'jsontable@log');
-    Route::get('/table/totallog', 'jsontable@totallog');
 });
 

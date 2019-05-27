@@ -622,7 +622,7 @@ $(document).ready(function () {
         pageLength: 10
     });
     let tblmessage = $('#tblmessage').DataTable({
-        // dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
+        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
         responsive: true,
         processing: true,
         ajax: `${base_url}table/message`,
@@ -737,228 +737,332 @@ $(document).ready(function () {
         pageLength: 10
     });
 
-    var tbladmin = $('#tbladmin').mDatatable({
-        // datasource definition
-        data: {
-            type: 'remote',
-            source: `${base_url}table/admin`,
-            pageSize: 10,
-            serverPaging: !1,
-            serverFiltering: !1,
-            serverSorting: !1
+    let tbladmin = $('#tbladmin').DataTable({
+        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
+        responsive: true,
+        processing: true,
+        ajax: {
+            type: 'POST',
+            url: `${base_url}table/admin`
         },
-
-        // layout definition
-        layout: {
-            theme: 'default', // datatable theme
-            class: '', // custom wrapper class
-            scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-            footer: false // display/hide footer
-        },
-
-        // column sorting
-        sortable: true,
-
-        pagination: true,
-
-        search: {
-            input: $('#generalSearch')
-        },
-
-        // columns definition
         columns: [
             {
-                field: "username",
+                data: "username",
                 title: "Username",
-                textAlign: 'center'
+                sClass: "text-center"
             },
             {
-                field: "id",
-                width: 110,
-                title: "Actions",
-                sortable: false,
-                overflow: 'visible',
-                textAlign: 'center',
-                template: (t, e, a) => {
+                data: "id",
+                width: 300,
+                sClass: "text-center",
+                render: (t, e, a) => {
                     $('.btn-data').tooltip();
                     return `
                             <button class="btn btn-circle btn-warning btn-xs btn-data btn-edit"
-                             data-toggle="modal" data-table="admin" data-id="${t.id}" data-target="#fedit" title="Perbarui Data">
+                             data-toggle="modal" data-table="admin" data-id="${t}" data-target="#fedit" title="Perbarui Data">
                                 <i class="flaticon-notes"></i>
                             </button>
                               &nbsp;
-                            ${t.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
-                             data-id="${t.id}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
+                            ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
+                             data-id="${t}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
                             </button>`: ""}
                     `;
                 }
             }
         ],
+        language: {
+            aria: {
+                sortAscending: ": activate to sort column ascending",
+                sortDescending: ": activate to sort column descending"
+            },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
+            emptyTable: "Tidak ada data admin yang tersedia",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            infoEmpty: "Data tidak ditemukan",
+            infoFiltered: "(Terfilter _TOTAL_ data dari _MAX_ total data)",
+            lengthMenu: "_MENU_ data",
+            search: "Cari:",
+            zeroRecords: "Tidak ada data yang cocok"
+        },
+        colReorder: {
+            realtime: true
+        },
+
         buttons: [
             {
                 extend: 'print',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "admin"
+                }
             },
             {
                 extend: 'copyHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "admin"
+                }
             },
             {
                 extend: 'excelHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "admin"
+                }
             },
             {
                 extend: 'csvHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "admin"
+                }
             },
             {
                 extend: 'pdfHtml5',
-                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "admin"
+                }
             }
         ],
+        order: [
+            [0, 'asc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"] // change per page values here
+        ],
+        // set the initial value
+        pageLength: 10
     });
-    var tblmanager = $('#tblmanager').mDatatable({
-        // datasource definition
-        data: {
-            type: 'remote',
-            source: `${base_url}table/manager`,
-            pageSize: 10,
-            serverPaging: !0,
-            serverFiltering: !1,
-            serverSorting: !0
+
+    let tblmanager = $('#tblmanager').DataTable({
+        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
+        responsive: true,
+        processing: true,
+        ajax: {
+            type: 'POST',
+            url: `${base_url}table/manager`
         },
-
-        // layout definition
-        layout: {
-            theme: 'default', // datatable theme
-            class: '', // custom wrapper class
-            scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-            footer: false // display/hide footer
-        },
-
-        // column sorting
-        sortable: true,
-
-        pagination: true,
-
-        search: {
-            input: $('#generalSearch')
-        },
-
-        // columns definition
         columns: [
             {
-                field: "username",
+                data: "username",
                 title: "Username",
-                textAlign: 'center'
+                sClass: "text-center",
             },
             {
-                field: "upline",
+                data: "upline",
                 title: "Upline",
-                textAlign: 'center',
+                sClass: "text-center",
             },
             {
-                field: "id",
-                width: 110,
-                title: "Actions",
-                sortable: false,
-                overflow: 'visible',
-                textAlign: 'center',
-                template: (t, e, a) => {
+                data: "id",
+                width: 300,
+                sClass: "text-center",
+                render: (t, e, a) => {
                     $('.btn-data').tooltip();
                     return `
                             <button class="btn btn-circle btn-warning btn-xs btn-data btn-edit"
-                             data-toggle="modal" data-table="admin" data-id="${t.id}" data-target="#fedit" title="Perbarui Data">
+                             data-toggle="modal" data-table="admin" data-id="${t}" data-target="#fedit" title="Perbarui Data">
                                 <i class="flaticon-notes"></i>
                             </button>
                               &nbsp;
-                            ${t.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
-                             data-id="${t.id}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
+                            ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
+                             data-id="${t}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
                             </button>`:""}
                     `;
                 }
             }
-        ]
-    });
-    var tblmarketing = $('#tblmarketing').mDatatable({
-        // datasource definition
-        data: {
-            type: 'remote',
-            source: `${base_url}table/marketing`,
-            pageSize: 10,
-            serverPaging: !0,
-            serverFiltering: !1,
-            serverSorting: !0
+        ],
+        language: {
+            aria: {
+                sortAscending: ": activate to sort column ascending",
+                sortDescending: ": activate to sort column descending"
+            },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
+            emptyTable: "Tidak ada data manager yang tersedia",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            infoEmpty: "Data tidak ditemukan",
+            infoFiltered: "(Terfilter _TOTAL_ data dari _MAX_ total data)",
+            lengthMenu: "_MENU_ data",
+            search: "Cari:",
+            zeroRecords: "Tidak ada data yang cocok"
+        },
+        colReorder: {
+            realtime: true
         },
 
-        // layout definition
-        layout: {
-            theme: 'default', // datatable theme
-            class: '', // custom wrapper class
-            scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-            footer: false // display/hide footer
-        },
-
-        // column sorting
-        sortable: true,
-
-        pagination: true,
-
-        search: {
-            input: $('#generalSearch')
-        },
-
-        // columns definition
-        columns: [
+        buttons: [
             {
-                field: "name",
-                title: "Username",
-                textAlign: 'center'
+                extend: 'print',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "manager"
+                }
             },
             {
-                field: "email",
+                extend: 'copyHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "manager"
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "manager"
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "manager"
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "manager"
+                }
+            }
+        ],
+        order: [
+            [0, 'asc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"] // change per page values here
+        ],
+        // set the initial value
+        pageLength: 10
+    });
+
+    let tblmarketing = $('#tblmarketing').DataTable({
+        dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>", // horizobtal scrollable datatable
+        responsive: true,
+        processing: true,
+        ajax: {
+            type: 'POST',
+            url: `${base_url}table/marketing`
+        },
+        columns: [
+            {
+                data: "name",
+                title: "Username",
+                sClass: 'text-center'
+            },
+            {
+                data: "email",
                 title: "Email",
-                textAlign: 'center',
+                sClass: 'text-center',
             },
             {
-                field: "upline",
+                data: "upline",
                 title: "Upline",
-                textAlign: 'center',
+                sClass: 'text-center',
             },
             {
-                field: "profile_picture",
+                data: "profile_picture",
                 title: "Profil Marketing",
-                textAlign: 'center',
-                template: (t,e,a) => {
-                    return `${t.profile_picture ? `<a href="${base_url}uploads/marketing/${t.profile_picture}"><img width="100" src="${base_url}uploads/marketing/${t.profile_picture}" alt="profile picture marketing ${t.name}"></a>` : `marketing ${t.name} belum mengupload foto`}`
+                sClass: 'text-center',
+                render: (t,e,a) => {
+                    return `${t ? `<a target="_blank" href="${base_url}uploads/marketing/${t}"><img width="100" src="${base_url}uploads/marketing/${t}" alt="profile picture marketing ${a.name}"></a>` : `marketing ${a.name} belum mengupload foto`}`
                 }
             },
             {
-                field: "id",
+                data: "id",
                 width: 110,
-                title: "Actions",
-                sortable: false,
-                overflow: 'visible',
-                textAlign: 'center',
-                template: (t, e, a) => {
+                sClass: 'text-center',
+                render: (t, e, a) => {
                     $('.btn-data').tooltip();
                     return `
                             <button class="btn btn-circle btn-warning btn-xs btn-data btn-edit"
-                             data-toggle="modal" data-table="users" data-id="${t.id}" data-target="#fedit" title="Perbarui Data">
+                             data-toggle="modal" data-table="users" data-id="${t}" data-target="#fedit" title="Perbarui Data">
                                 <i class="flaticon-notes"></i>
                             </button>
                               &nbsp;
-                            ${t.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
-                             data-id="${t.id}" data-table="users" data-toggle="tooltip" data-placement="top" title="Hapus Data">
+                            ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
+                             data-id="${t}" data-table="users" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
                             </button>`:""}
                     `;
                 }
             }
-        ]
+        ],
+        language: {
+            aria: {
+                sortAscending: ": activate to sort column ascending",
+                sortDescending: ": activate to sort column descending"
+            },
+            loadingRecords: 'Loading ... ',
+            processing: '<div class="m-loader m-loader--brand"></div>',
+            emptyTable: "Tidak ada data marketing yang tersedia",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            infoEmpty: "Data tidak ditemukan",
+            infoFiltered: "(Terfilter _TOTAL_ data dari _MAX_ total data)",
+            lengthMenu: "_MENU_ data",
+            search: "Cari:",
+            zeroRecords: "Tidak ada data yang cocok"
+        },
+        colReorder: {
+            realtime: true
+        },
+
+        buttons: [
+            {
+                extend: 'print',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-primary m-btn--gradient-to-info btn-export',
+                attr: {
+                    "data-export": "marketing"
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "marketing"
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning btn-export',
+                attr: {
+                    "data-export": "marketing"
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-warning m-btn--gradient-to-danger btn-export',
+                attr: {
+                    "data-export": "marketing"
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                className: 'btn m-btn--square  m-btn m-btn--gradient-from-info m-btn--gradient-to-accent btn-export',
+                attr: {
+                    "data-export": "marketing"
+                }
+            }
+        ],
+        order: [
+            [0, 'asc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"] // change per page values here
+        ],
+        // set the initial value
+        pageLength: 10
     });
+
     var tbllokasiunit = $('#tbllokasiunit').mDatatable({
         // datasource definition
         data: {
@@ -1074,13 +1178,14 @@ $(document).ready(function () {
                     }else {
                         switch (action) {
                             case "users":
-                                tbladmin ? tbladmin.reload() : tblmanager.reload();
+                                tbladmin.ajax.reload()
+                                tblmanager.ajax.reload();
                                 $('button.close[data-dismiss="modal"]').click();
                                 // location.reload();
                                 break;
                             case "marketing":
                                 $('button.close[data-dismiss="modal"]').click();
-                                tblmarketing.reload();
+                                tblmarketing.ajax.reload();
                                 break;
                             case "lokasiunit":
                                 tbllokasiunit.reload()
@@ -1122,7 +1227,6 @@ $(document).ready(function () {
                 table: table
             },
             success: res => {
-                console.table(res)
                 let keys = Object.keys(res[0]);
                 for (let i = 0; i < keys.length; i++) {
                     let key = keys[i];
@@ -1152,15 +1256,14 @@ $(document).ready(function () {
                 } else {
                     switch (table) {
                         case "admin":
-                            tbladmin ? tbladmin.reload() :
-                                tblmanager.reload();
+                            tbladmin.ajax.reload()
+                            tblmanager.ajax.reload();
                             break;
                         case "users":
-                            tblmarketing.reload();
+                            tblmarketing.ajax.reload();
                             break;
                         case "banner":
-                            // tblbanner.reload();
-                            location.reload()
+                            tblbanner.ajax.reload();
                             break;
                         case "lokasi_unit":
                             tbllokasiunit.reload();
@@ -1171,6 +1274,7 @@ $(document).ready(function () {
                     }
                 }
             },
+            //TODO : Remove on Production
             error: xhr => {
                 console.log(xhr.responseJSON.message)
             }
@@ -1187,6 +1291,7 @@ $(document).ready(function () {
             data : {
                 data_export:data_export
             },
+            //TODO : Remove on Production
             error: xhr => {
                 console.log(xhr.responseJSON.message);
             }

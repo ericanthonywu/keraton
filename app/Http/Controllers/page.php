@@ -154,10 +154,12 @@ class page extends Controller
     function pdf($data){
         $data_sale = Sale::where('pdf_name',$data)->first();
         $data_unit = Unit::find($data_sale['unit']);
-        $data_sale['namaunit'] = $data_unit['nama'];
-        $data_sale['lokasiunit'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'].", $data_unit[lokasi_text]";
+        $data_sale['nama_unit'] = $data_unit['nama'];
+        $data_sale['lokasi_unit'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'].", $data_unit[lokasi_text]";
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.tandaterima',$data_sale);
+        $pdf->loadView('pdf.tandaterima',[
+            "data_sale"=>$data_sale
+        ]);
         return $pdf->download('invoice.pdf');
     }
 }

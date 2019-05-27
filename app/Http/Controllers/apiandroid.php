@@ -16,9 +16,29 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Session;
+use SimpleXMLElement;
 
 class apiandroid extends Controller
 {
+    public function sendsms($nohp,$pesan){
+        $url = "https://alpha.zenziva.net/apps/smsapi.php";
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, "userkey=rfd24w&passkey=@PtKAS$&nohp=$nohp&pesan=".urldecode($pesan));
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curlHandle, CURLOPT_TIMEOUT,30);
+        curl_setopt($curlHandle, CURLOPT_POST, 1);
+        $results = curl_exec($curlHandle);
+        curl_close($curlHandle);
+
+        $XMLdata = new SimpleXMLElement($results);
+        $status = $XMLdata->message[0]->text;
+        echo $status;
+//        echo $url;
+    }
     public function log($desc,$apikey)
     {
         $datatoken = Token::where("token_old", $apikey)->orWhere('token_new', $apikey)->first();
@@ -136,7 +156,11 @@ class apiandroid extends Controller
             $req['id'] = $r->salesid;
             $req['pdf_name'] = md5(bcrypt($r->nama."_".Str::random(10).time()));
             $namaunit = Unit::find($r->unit)['name'];
-            $this->log(" submit new sale : <b>$r->nama - $namaunit</b>",$r->apiKey);
+            $this->log(" submit new sale : <b>$namaunit - $r->nama</b>",$r->apiKey);
+            $pdf = md5(Str::random('10').time());
+            $pesan = "Hi, $r->nama, Berikut ini bukti tanda terima Anda, silahkan unduh link ini : ".url("invoice/$pdf");
+            $this->sendsms($r->nohp,$pesan);
+            $req['pdf_name'] = $pdf;
             $id = Sale::create($req);
             foreach ($id as $v) {
                 for ($x = 0; $x < count($arrfile); $x++) {

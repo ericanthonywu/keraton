@@ -18,11 +18,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Support\Str;
 use Session;
+use SimpleXMLElement;
 use Storage;
 use Validator;
 
 class crud extends Controller
 {
+    public function sendsms($nohp,$pesan){
+        $url = "https://alpha.zenziva.net/apps/smsapi.php";
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, "userkey=rfd24w&passkey=@PtKAS$&nohp=$nohp&pesan=".urldecode($pesan));
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curlHandle, CURLOPT_TIMEOUT,30);
+        curl_setopt($curlHandle, CURLOPT_POST, 1);
+        $results = curl_exec($curlHandle);
+        curl_close($curlHandle);
+
+        $XMLdata = new SimpleXMLElement($results);
+        $status = $XMLdata->message[0]->text;
+        echo $status;
+//        echo $url;
+    }
     public function push_notification($body, $title, $data, $token)
     {
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
@@ -95,24 +115,24 @@ class crud extends Controller
     function delete(Request $r, $table)
     {
         if (Session::get('level') == 3) {
-            DB::table($table)->where('id', $r->id)->delete();
             $data = DB::table($table)->where('id', $r->id)->first();
             $datadel = '';
             switch ($table){
                 case "admin":
-                    $datadel = $data['name'];
+                    $datadel = $data->name;
                     break;
                 case "users":
-                    $datadel = $data['name'];
+                    $datadel = $data->name;
                     break;
                 case "banner":
-                    $datadel = "banner : ".$data['nama'];
+                    $datadel = "banner : ".$data->nama;
                     break;
                 case "unit":
-                    $datadel = "unit : ".$data['nama'];
+                    $datadel = "unit : ".$data->nama;
                     break;
             }
             $this->log(" delete " . $datadel);
+            DB::table($table)->where('id', $r->id)->delete();
             return null;
         } else {
             return "Anda tidak memiliki HAK AKSES Untuk Menghapus";
@@ -414,9 +434,15 @@ class crud extends Controller
 
     function proceedsales(Request $r)
     {
-        $user = Sale::where('sales_id', $r->id)->first()['created_by'];
+
+        $sale = Sale::where('sales_id', $r->id)->first();
+        $user = $sale['created_by'];
+//
+//        $this->sendsms($sale['nohp'],$pesan);
         switch ($r->status) {
             case 1:
+//                $pesan = "Hi, $sale[nama], jadwal wawancara : ";
+//                $this->sendsms($sale['nohp'],$pesan);
                 break;
             case 2:
                 break;
@@ -451,7 +477,8 @@ class crud extends Controller
         }
 
         Sale::where('sales_id', $r->id)->update([
-            "status" => $r->status
+            "status" => $r->status,
+            "pdf_name"=>$pdf
         ]);
         $status = '';
         switch ($r->status) {
@@ -476,5 +503,8 @@ class crud extends Controller
         }
         $data =  Sale::where('sales_id', $r->id)->first();
         $this->log(" change status unit to $status : <b>$data[nama]</b>");
+    }
+    function clearlog(){
+        Logging::truncate();
     }
 }
