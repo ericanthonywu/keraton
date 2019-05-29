@@ -18,16 +18,6 @@ License: You must have a valid license purchased only from themeforest(the above
 @include('theme.head')
 
 <!-- end::Head -->
-{{--<style>--}}
-{{--	.amcharts-amexport-item {--}}
-{{--		border: 2px solid #777;--}}
-{{--	}--}}
-
-{{--	.amcharts-amexport-top .amcharts-amexport-item > .amcharts-amexport-menu {--}}
-{{--		top: -3px!important;--}}
-{{--		left: 2px--}}
-{{--	}--}}
-{{--</style>--}}
 <!-- begin::Body -->
 <style>
     @media print {
@@ -74,27 +64,35 @@ License: You must have a valid license purchased only from themeforest(the above
                             Welcome, {{\Session::get('users')}}</h3>
                         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                             <li class="m-nav__item m-nav__item--home">
-                                <a href="#" class="m-nav__link m-nav__link--icon">
-                                    <i class="m-nav__link-icon la la-home"></i>
-                                </a>
+                                <select class="form-control" id="bulan">
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
                             </li>
                             <li class="m-nav__separator">-</li>
                             <li class="m-nav__item">
-                                <a href="" class="m-nav__link">
-                                    <span class="m-nav__link-text">Resources</span>
-                                </a>
+                                <input type="text" id="tahun" class="number form-control" maxlength="4" value="{{date('Y')}}">
                             </li>
                             <li class="m-nav__separator">-</li>
                             <li class="m-nav__item">
-                                <a href="" class="m-nav__link">
-                                    <span class="m-nav__link-text">Timesheet</span>
-                                </a>
+                                <button id="submit" class="btn btn-success btn-outline-success">Cari</button>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
                              m-dropdown-toggle="hover" aria-expanded="true">
+
                             <button class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle btn-print">
                                 <i class="fa fa-print"></i>
                             </button>
@@ -252,6 +250,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
     const base_url = window.location.origin+"/"
 </script>
+@include('theme.script')
 <script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
@@ -260,8 +259,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{asset('amcharts4/themes/animated.js')}}"></script>
 <script src="{{asset('amcharts4/deps/pdfmake.js')}}"></script>
 <script src="{{asset('js/chart.js')}}"></script>
-@include('theme.script')
-
 {{--amchart metronic--}}
 {{--<script src="//www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>--}}
 {{--<script src="//www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>--}}

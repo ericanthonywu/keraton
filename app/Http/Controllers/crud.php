@@ -40,8 +40,7 @@ class crud extends Controller
 
         $XMLdata = new SimpleXMLElement($results);
         $status = $XMLdata->message[0]->text;
-        echo $status;
-//        echo $url;
+        return $status;
     }
     public function push_notification($body, $title, $data, $token)
     {
@@ -441,10 +440,12 @@ class crud extends Controller
 //        $this->sendsms($sale['nohp'],$pesan);
         switch ($r->status) {
             case 1:
-//                $pesan = "Hi, $sale[nama], jadwal wawancara : ";
-//                $this->sendsms($sale['nohp'],$pesan);
+                $pesan = "Hi, $sale[nama], jadwal wawancara : $r->tanggal pukul $r->waktu di $r->tempat info lebih lanjut : $r->nohp";
+                $this->sendsms($sale['nohp'],$pesan);
                 break;
             case 2:
+                $pesan = "Hi, $sale[nama], jadwal akad kredit : $r->tanggal pukul $r->waktu di $r->tempat info lebih lanjut : $r->nohp";
+                $this->sendsms($sale['nohp'],$pesan);
                 break;
             case 3:
                 break;
@@ -478,7 +479,6 @@ class crud extends Controller
 
         Sale::where('sales_id', $r->id)->update([
             "status" => $r->status,
-            "pdf_name"=>$pdf
         ]);
         $status = '';
         switch ($r->status) {

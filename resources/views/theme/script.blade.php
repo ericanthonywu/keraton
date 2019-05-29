@@ -27,11 +27,11 @@
 {{--<script src="{{asset('assets/vendors/jquery.repeater/src/repeater.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/jquery-form/dist/jquery.form.min.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/block-ui/jquery.blockUI.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>--}}
+<script src="{{asset('assets/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 {{--<script src="{{asset('assets/vendors/js/framework/components/plugins/forms/bootstrap-datepicker.init.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/js/framework/components/plugins/forms/bootstrap-timepicker.init.js')}}"></script>--}}
+<script src="{{asset('assets/vendors/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js')}}"></script>
+<script src="{{asset('assets/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}"></script>
+<script src="{{asset('assets/vendors/js/framework/components/plugins/forms/bootstrap-timepicker.init.js')}}"></script>
 {{--<script src="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/js/framework/components/plugins/forms/bootstrap-daterangepicker.init.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js')}}"></script>--}}
@@ -83,7 +83,6 @@
 <script src="{{asset('assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
 
 <!--end::Page Vendors -->
-<script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
 <!--begin::Page Scripts -->
 <script src="{{asset('assets/app/js/dashboard.js')}}"></script>
 <script src="{{asset('assets/vendors/custom/select2/select2.js')}}"></script>
@@ -92,6 +91,6 @@
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/form_validate.js')}}"></script>
 <script src="{{asset('js/select2.js')}}"></script>
-<script src="{{asset('js/editdel.js')}}"></script>
+<script src="{{asset('js/datetimepicker.js')}}"></script>
 <script src="{{asset('js/script-manual.js')}}"></script>
 <!--end::Page Scripts -->

@@ -10,6 +10,18 @@ $(document).ready(function () {
             return markup
         },
     });
+    // $("#bulan").select2({
+    //     width: '100%',
+    //     placeholder: 'Pilih Bulan',
+    //     language: {
+    //         noResults: function () {
+    //             return 'Tidak ada bulan yang tersedia'
+    //         },
+    //     },
+    //     escapeMarkup: function (markup) {
+    //         return markup
+    //     },
+    // })
     $(".hakakses").select2({
         width: '100%',
         placeholder: 'Pilih Upline',

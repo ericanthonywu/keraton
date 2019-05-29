@@ -40,6 +40,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @mixin \Eloquent
  * @property int $created_by
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedBy($value)
+ * @property string|null $profile_picture
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereProfilePicture($value)
  */
 class User extends Eloquent
 {

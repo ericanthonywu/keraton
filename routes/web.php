@@ -80,12 +80,12 @@ Route::middleware('authcheck')->group(function () {
     Route::get('/marketing', 'page@marketing');
     Route::view('/totalsales', 'page.totalsales.index');
 
-    Route::get('/chart/sales', 'chart@sales');
-    Route::get('/chart/unit', 'chart@unit');
-    Route::get('/chart/kinerjasales', 'chart@kinerjasales');
-    Route::get('/chart/groupunit', 'chart@groupunit');
-    Route::get('/chart/dp', 'chart@dp');
-    Route::get('/chart/commission', 'chart@commission');
+    Route::get('/chart/sales/{bulan}/{tahun}', 'chart@sales');
+    Route::get('/chart/unit/{bulan}/{tahun}', 'chart@unit');
+    Route::get('/chart/kinerjasales/{bulan}/{tahun}', 'chart@kinerjasales');
+    Route::get('/chart/groupunit/{bulan}/{tahun}', 'chart@groupunit');
+    Route::get('/chart/dp/{bulan}/{tahun}', 'chart@dp');
+    Route::get('/chart/commission/{bulan}/{tahun}', 'chart@commission');
 
     Route::get('/table/sale', 'jsontable@sale');
     Route::post('/table/detailtotalsales', 'jsontable@detailtotalsales');

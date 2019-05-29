@@ -52,13 +52,13 @@ hoverShadow.blur = 5;
 // Add a legend
 chartcommission.legend = new am4charts.Legend();
 
-chartcommission.dataSource.url = `${base_url}chart/dp`;
+chartcommission.dataSource.url = `${base_url}chart/dp/0/0`;
 
 //-----------------------------------------------------------------
 
 var chartgroupunit = am4core.create("chartgroupunit", am4charts.XYChart);
 
-chartgroupunit.dataSource.url = `${base_url}chart/groupunit`;
+chartgroupunit.dataSource.url = `${base_url}chart/groupunit/0/0`;
 
 chartgroupunit.padding(40, 40, 40, 40);
 
@@ -85,7 +85,7 @@ series.columns.template.adapter.add("fill", function (fill, target) {
 
 var chartkinerjasales = am4core.create("chartkinerjasales", am4charts.XYChart);
 
-chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales`;
+chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales/0/0`;
 
 chartkinerjasales.padding(40, 40, 40, 40);
 
@@ -98,7 +98,7 @@ var valueAxis = chartkinerjasales.yAxes.push(new am4charts.ValueAxis());
 
 var series = chartkinerjasales.series.push(new am4charts.ColumnSeries());
 series.dataFields.categoryX = "Sales";
-series.dataFields.valueY = "visits";
+series.dataFields.valueY = "Total";
 series.tooltipText = "{valueY.value}"
 series.columns.template.strokeOpacity = 0;
 
@@ -163,7 +163,7 @@ hoverShadow.blur = 5;
 // Add a legend
 chartsales.legend = new am4charts.Legend();
 
-chartsales.dataSource.url = `${base_url}chart/sales`;
+chartsales.dataSource.url = `${base_url}chart/sales/0/0`;
 //-----------------------------------
 // Themes begin
 
@@ -219,7 +219,7 @@ hoverShadow.blur = 5;
 // Add a legend
 chartstockunit.legend = new am4charts.Legend();
 
-chartstockunit.dataSource.url = `${base_url}chart/unit`;
+chartstockunit.dataSource.url = `${base_url}chart/unit/0/0`;
 //------------------------------------------------------
 // Themes begin
 
@@ -275,7 +275,7 @@ hoverShadow.blur = 5;
 // Add a legend
 chartdp.legend = new am4charts.Legend();
 
-chartdp.dataSource.url = `${base_url}chart/commission`;
+chartdp.dataSource.url = `${base_url}chart/commission/0/0`;
 
 document.querySelector('.btn-print').addEventListener('click', e => {
     var ids = ["chartsales", "chartstockunit", 'chartgroupunit', 'chartkinerjasales', 'chartdp', 'chartcommission'];
@@ -398,4 +398,25 @@ document.querySelector('.btn-print').addEventListener('click', e => {
 
     });
 
+})
+document.querySelector('#submit').addEventListener('click', e => {
+    const bulan = $('#bulan').val()
+    const tahun = $('#tahun').val()
+    chartcommission.dataSource.url = `${base_url}chart/dp/${bulan}/${tahun}`;
+    chartcommission.dataSource.load()
+
+    chartgroupunit.dataSource.url = `${base_url}chart/groupunit/${bulan}/${tahun}`;
+    chartgroupunit.dataSource.load()
+
+    chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales/${bulan}/${tahun}`;
+    chartkinerjasales.dataSource.load()
+
+    chartsales.dataSource.url = `${base_url}chart/sales/${bulan}/${tahun}`;
+    chartsales.dataSource.load()
+
+    chartstockunit.dataSource.url = `${base_url}chart/unit/${bulan}/${tahun}`;
+    chartstockunit.dataSource.load()
+
+    chartdp.dataSource.url = `${base_url}chart/commission/${bulan}/${tahun}`;
+    chartdp.dataSource.load()
 })

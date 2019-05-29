@@ -34,6 +34,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $nohp
+ * @property string|null $profile_picture
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereNohp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProfilePicture($value)
  */
 class User extends Authenticatable
 {

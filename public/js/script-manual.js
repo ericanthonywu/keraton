@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const base_url = window.location.origin + "/";
     const host = window.location.host;
+
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -18,7 +19,10 @@ $(document).ready(function () {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
-
+    function numberWithCommas(n) {
+        var parts = n.toString().split(".");
+        return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+    }
     $('.maxlength').maxlength({
         threshold: 5,
         warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide",
@@ -106,6 +110,7 @@ $(document).ready(function () {
             success: res => {
                 $('#divdeskripsi .modal-body').html(res);
             },
+            // TODO : Remove on Production
             error: xhr => {
                 console.log(xhr.responseJSON.message);
             }
@@ -125,6 +130,7 @@ $(document).ready(function () {
                 const sale = res[0]
                 const unit = res[1]
                 const unit_file = res[2]
+                console.log(sale)
 
                 $('#detailtotalsales .modal-body #namakonsumen').html(": <b>" + sale.nama + "</b>")
                 $('#detailtotalsales .modal-body #nohpkonsumen').html(": <b>" + sale.nohp + "</b>")
@@ -135,13 +141,31 @@ $(document).ready(function () {
                 $('#detailtotalsales .modal-body #lokasiunit').html(": <b>" + unit.lokasi + "</b>")
                 $('#detailtotalsales .modal-body #dibuat_oleh').html(": <b>" + sale.dibuat_oleh + "</b>")
                 $('#detailtotalsales .modal-body #hargaunit').html(": <b>Rp. " + numberWithCommas(unit.harga) + "</b>")
-                $('#detailtotalsales .modal-body #foto-ktp').attr("src", base_url + "uploads/ktp/" + sale.fotoktp).closest('a').attr('href', sale.fotoktp ? base_url + "uploads/ktp/" + sale.fotoktp : "#")
-                $('#detailtotalsales .modal-body #foto-konsumen').attr("src", base_url + "uploads/konsumen/" + sale.fotokonsumen).closest('a').attr('href', sale.fotokonsumen ? base_url + "uploads/konsumen/" + sale.fotokonsumen : "#")
-                $('#detailtotalsales .modal-body #foto-pasangan').attr("src", base_url + "uploads/pasangan/" + sale.fotopasangan).closest('a').attr('href', sale.fotopasangan ? base_url + "uploads/pasangan/" + sale.fotopasangan : "#")
-                $('#detailtotalsales .modal-body #foto-npwp').attr("src", base_url + "uploads/npwp/" + sale.fotonpwp).closest('a').attr('href', sale.fotonpwp ? base_url + "uploads/npwp/" + sale.fotonpwp : "#")
-                $('#detailtotalsales .modal-body #foto-gaji').attr("src", base_url + "uploads/gaji/" + sale.fotogaji).closest('a').attr('href', sale.fotogaji ? base_url + "uploads/gaji/" + sale.fotogaji : "#")
-                $('#detailtotalsales .modal-body #foto-kerja').attr("src", base_url + "uploads/kerja/" + sale.fotokerja).closest('a').attr('href', sale.fotokerja ? base_url + "uploads/kerja/" + sale.fotokerja : "#")
-                $('#detailtotalsales .modal-body #foto-spt').attr("src", base_url + "uploads/spt/" + sale.fotospt).closest('a').attr('href', sale.fotospt ? base_url + "uploads/spt/" + sale.fotospt : "#")
+
+                $('#detailtotalsales .modal-body #foto-ktp').attr("src", sale.fotoktp ? base_url + "uploads/ktp/" + sale.fotoktp : "")
+                    .closest('a').attr('href', sale.fotoktp ? base_url + "uploads/ktp/" + sale.fotoktp : "#")
+
+                $('#detailtotalsales .modal-body #foto-konsumen').attr("src", sale.fotokonsumen ? base_url + "uploads/konsumen/" + sale.fotokonsumen : "")
+                    .closest('a').attr('href', sale.fotokonsumen ? base_url + "uploads/konsumen/" + sale.fotokonsumen : "#")
+
+                $('#detailtotalsales .modal-body #foto-ktp-pasangan').attr("src", sale.fotoktppasangan ? base_url + "uploads/ktppasangan/" + sale.fotoktppasangan : "")
+                    .closest('a').attr('href', sale.fotoktppasangan ? base_url + "uploads/ktppasangan/" + sale.fotoktppasangan : "#")
+
+                $('#detailtotalsales .modal-body #foto-pasangan').attr("src",sale.fotopasangan ? base_url + "uploads/pasangan/" + sale.fotopasangan : "")
+                    .closest('a').attr('href', sale.fotopasangan ? base_url + "uploads/pasangan/" + sale.fotopasangan : "#")
+
+                $('#detailtotalsales .modal-body #foto-npwp').attr("src", sale.fotonpwp ? base_url + "uploads/npwp/" + sale.fotonpwp : "")
+                    .closest('a').attr('href', sale.fotonpwp ? base_url + "uploads/npwp/" + sale.fotonpwp : "#")
+
+                $('#detailtotalsales .modal-body #foto-gaji').attr("src",sale.fotogaji ? base_url + "uploads/gaji/" + sale.fotogaji : "")
+                    .closest('a').attr('href', sale.fotogaji ? base_url + "uploads/gaji/" + sale.fotogaji : "#")
+
+                $('#detailtotalsales .modal-body #foto-kerja').attr("src", sale.fotokerja ? base_url + "uploads/kerja/" + sale.fotokerja : "")
+                    .closest('a').attr('href', sale.fotokerja ? base_url + "uploads/kerja/" + sale.fotokerja : "#")
+
+                $('#detailtotalsales .modal-body #foto-spt').attr("src", sale.fotospt ? base_url + "uploads/spt/" + sale.fotospt : "")
+                    .closest('a').attr('href', sale.fotospt ? base_url + "uploads/spt/" + sale.fotospt : "#")
+
 
                 unit_file.forEach(o => {
                     $('#detailtotalsales .modal-body #fotounit')
@@ -153,26 +177,37 @@ $(document).ready(function () {
             },
             error: xhr => {
                 console.log(xhr.responseJSON.message)
+                toastr.error(xhr.responseJSON.message,"error");
             }
         })
     })
-    function numberWithCommas(n) {
-        var parts = n.toString().split(".");
-        return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
-    }
+
     $('.aksisales').click(function () {
         console.log('dapet')
         const id = $(this).data('id')
         const status = $(this).data('status')
+        let data;
+        switch (status) {
+            case 1:
+                data = $('form#wawancara').serialize() + `&id=${id}&status=${status}`
+                break;
+            case 2:
+                data = $('form#akad').serialize() + `&id=${id}&status=${status}`
+                break;
+            default:
+                data = {
+                    id: id,
+                    status: status
+                }
+                break;
+        }
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type:'POST',
-            data:{
-                id:id,
-                status:status,
-            },
+            data:data,
             url:`${base_url}action/proceedsales`,
             success: res =>{
                 if(res){

@@ -22,26 +22,29 @@
     <link href="{{asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
 
     <!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-    <link href="{{asset('assets/demo/demo12/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/jquery-ui/jquery-ui.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/summernote/dist/summernote.css')}}" rel="stylesheet" type="text/css" />
 
-    <!--RTL version:<link href="assets/demo/demo12/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
+{{--    <!--RTL version:<link href="assets/demo/demo12/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->--}}
 
     <!--end::Global Theme Styles -->
 
     <!--begin::Page Vendors Styles -->
-{{--    <link href="{{url('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />--}}
+    <link href="{{url('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 
-    <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
+{{--    <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->--}}
 
     <!--end::Page Vendors Styles -->
-    <link rel="shortcut icon" href="{{asset('assets/logo/Keraton-logo.png')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" type="text/css">
-    <link rel="stylesheet" href="https://unpkg.com/tableexport@5.2.0/dist/css/tableexport.min.css">
-{{--    <link rel="stylesheet" href="{{url('assets/select2/css/select2.min.css')}}">--}}
-    <link rel="stylesheet" href="{{asset('assets/select2/css/select2-bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.theme.green.css')}}">
+    <link rel="shortcut icon" type="text/css" href="{{asset('assets/logo/Keraton-logo.png')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" >
+    <link rel="stylesheet" type="text/css" href="{{url('assets/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/select2/css/select2-bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/vendors/metronic/css/styles.css')}}"  />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.carousel.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.theme.green.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/demo/demo12/base/style.bundle.css')}}" />
 </head>

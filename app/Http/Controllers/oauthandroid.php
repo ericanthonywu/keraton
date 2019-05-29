@@ -118,8 +118,8 @@ class oauthandroid extends Controller
 
     function logout(Request $r)
     {
-        $datany = Token::where('token_old',$r->apiKey)->orWhere('token_new',$r->apiKey)->first();
-        $marketing = User::find($datany['user'])['name'];
+        $datany = Token::where('token_old',$r->apiKey)->orWhere('token_new',$r->apiKey);
+        $marketing = User::find($datany->first()['user'])['name'];
         $this->log("<b>$marketing</b> (marketing) has logged out",null);
         if ($datany->exists()) {
             $data = $datany->first();

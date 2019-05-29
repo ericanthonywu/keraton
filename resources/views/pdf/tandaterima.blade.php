@@ -130,7 +130,7 @@
 <div class="container">
     <div class="row">
         <div class="col-4"><span class="m--icon-font-size-lg2">Uang sebesar</span></div>
-        <div class="col-4"><span class="m--icon-font-size-lg2">: Rp. 1.000.000</span></div>
+        <div class="col-4"><span class="m--icon-font-size-lg2">: {!! $data_sale['harga_unit'] !!}</span></div>
         <div class="col-4">&nbsp;</div>
     </div>
 </div>

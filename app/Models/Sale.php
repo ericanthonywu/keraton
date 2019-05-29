@@ -16,6 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string|null $nohp
  * @property string|null $email
  * @property string|null $fotoktp
+ * @property string|null $fotoktppasangan
  * @property string|null $fotokonsumen
  * @property string|null $fotopasangan
  * @property string|null $fotonpwp
@@ -28,6 +29,34 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotokonsumen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotoktp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereNohp($value)
+ * @property int $sales_id
+ * @property int $id
+ * @property int $unit
+ * @property int $status
+ * @property int $harga
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotogaji($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotokerja($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotoktppasangan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotonpwp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotopasangan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereFotospt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereHarga($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereNama($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale wherePdfName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereSalesId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sale whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Sale extends Eloquent
 {
@@ -38,6 +67,7 @@ class Sale extends Eloquent
         'created_by'=>'int',
         'status'=>'int',
         'sales_id'=>'int',
+        'harga'=>'int',
         'id'=>'int'
     ];
 	protected $fillable = [
@@ -48,6 +78,7 @@ class Sale extends Eloquent
 		'nohp',
 		'email',
 		'fotoktp',
+		'fotoktppasangan',
 		'fotokonsumen',
 		'fotopasangan',
         'fotonpwp',
@@ -56,6 +87,7 @@ class Sale extends Eloquent
         'fotospt',
         'status',
         'pdf_name',
+        'harga',
         'created_by'
 	];
 }

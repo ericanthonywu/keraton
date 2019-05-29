@@ -79,17 +79,22 @@ return [
             'driver' => 'local',
             'root' => public_path('uploads/spt/'),
         ],
-//        'marketing' => [
-//            'driver' => 'local',
-//            'root' => public_path('uploads/marketing/'),
-//        ],
-
         'marketing' => [
             'driver' => 'local',
             'root' => public_path('uploads/marketing/'),
-//            'url' => env('APP_URL').'/storage',
-//            'visibility' => 'public',
         ],
+        'ktppasangan' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/ktppasangan/'),
+        ],
+
+
+//        'marketing' => [
+//            'driver' => 'local',
+//            'root' => public_path('uploads/marketing/'),
+////            'url' => env('APP_URL').'/storage',
+////            'visibility' => 'public',
+//        ],
 
         's3' => [
             'driver' => 's3',
