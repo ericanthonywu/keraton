@@ -14,9 +14,11 @@ use App\Models\Logging;
 use App\User;
 use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Session;
 use SimpleXMLElement;
+use stdClass;
 
 class apiandroid extends Controller
 {
@@ -75,13 +77,12 @@ class apiandroid extends Controller
         \Storage::disk($disk)->put($filename, File::get($file));
         return $filename;
     }
-
     function response($status, $message, $data, $header = null)
     {
         return response()->json([
             "status" => (int)$status,
             "message" => $message,
-            "data" => $data == "[]" || empty($data) ? new \stdClass() : $data,
+            "data" => $data == "[]" || empty($data) ? new stdClass() : $data,
         ], $header ? (int)$header : 200);
     }
 
@@ -112,19 +113,24 @@ class apiandroid extends Controller
             if (!$check_user->exists()) {
                 unset($req['apiKey']);
                 BannerParticipant::create($req);
-                return $this->response(1, 'Data Sudah Masuk', new \stdClass());
+                return $this->response(1, 'Data Sudah Masuk', new stdClass());
             } else {
-                return $this->response(1, 'Anda sudah terdaftar', new \stdClass());
+                return $this->response(1, 'Anda sudah terdaftar', new stdClass());
             }
 
         } else {
-            return $this->response(0, 'Token expired', new \stdClass());
+            return $this->response(0, 'Token expired', new stdClass());
         }
     }
 
     function getunit()
     {
-        $data = Unit::all();
+        $data = Unit::whereNotIn('id',function ($q){
+            $q->from('sales')
+                ->select('unit')
+                ->where('status','!=',5)
+            ;
+        })->get();
         foreach ($data as $k => $data_unit) {
             $data[$k]['lokasi'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'] . ", " . $data_unit['lokasi_text'];
             $data_gmbr_unit = UnitFile::where('unitID', $data_unit['id'])->get();
@@ -141,11 +147,14 @@ class apiandroid extends Controller
     function sale(Request $r)
     {
         if (empty($r->unit) or !isset($r->unit)) {
-            return $this->response(0, 'Unit harus diisi', new \stdClass());
+            return $this->response(0, 'Unit harus diisi', new stdClass());
         }
 
         if (empty($r->salesid) or !isset($r->salesid)) {
-            return $this->response(0, 'Sales Id harus diisi', new \stdClass());
+            return $this->response(0, 'Sales Id harus diisi', new stdClass());
+        }
+        if (empty($r->setor) or !isset($r->setor)) {
+            return $this->response(1, '', new stdClass());
         }
 
         $req = $r->all();
@@ -193,7 +202,7 @@ class apiandroid extends Controller
             return $this->response(1, "Sale baru berhasil di upload \n $r->nama : $unit", $id);
         } else if ($check) {
             if (empty($r->salesid) or !isset($r->salesid)) {
-                return $this->response(0, 'Sales harus diisi', new \stdClass());
+                return $this->response(0, 'Sales harus diisi', new stdClass());
             }
             $arrfile = ['ktp', 'ktppasangan', 'konsumen', 'pasangan', 'npwp', 'gaji', 'kerja', 'spt'];
             for ($x = 0; $x < count($arrfile); $x++) {
@@ -239,7 +248,7 @@ class apiandroid extends Controller
         $data_token = Token::where("token_old", $r->apiKey)->orWhere('token_new', $r->apiKey)->get();
         $id_user = $data_token[0]['user'];
         $data_id = Sale::where('created_by', $id_user)->get();
-        $arrfile = ['ktp', 'konsumen', 'pasangan', 'npwp', 'gaji', 'kerja', 'spt'];
+        $arrfile = ['ktp', 'konsumen','ktppasangan', 'pasangan', 'npwp', 'gaji', 'kerja', 'spt'];
         foreach ($data_id as $k => $v) {
             for ($x = 0; $x < count($arrfile); $x++) {
                 $data_id[$k]["urlfoto$arrfile[$x]"] = $v["foto$arrfile[$x]"] ? url("uploads/$arrfile[$x]/" . $v["foto$arrfile[$x]"]) : null;
@@ -249,7 +258,8 @@ class apiandroid extends Controller
             for ($x = 0; $x < count($arrfile); $x++) {
                 unset($data_id[$key]["foto$arrfile[$x]"]);
             }
-            if (!$v['fotoktp'] || !$v['fotoktppasangan'] || !$v['fotokonsumen'] || !$v['fotopasangan'] || !$v['fotonpwp'] || !$v['fotokerja'] || !$v['fotospt']) {
+
+            if (!$v['urlfotoktp'] || !$v['urlfotoktppasangan'] || !$v['urlfotokonsumen'] || !$v['urlfotopasangan'] || !$v['urlfotonpwp'] || !$v['urlfotokerja'] || !$v['urlfotospt']) {
                 $data_id[$key]['status'] = -1;
             } else {
                 $data_id[$key]['status'] = $v['status'];
@@ -259,8 +269,8 @@ class apiandroid extends Controller
             $data_id[$key]['unit_photo'] = url('uploads/unit/' . UnitFile::where('unitID', $data_unit['id'])->get()[0]['image'] . '');
             $data_id[$key]['unit_price'] = (int)$data_unit['harga'];
             $data_id[$key]['unit_location'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'] . ", " . $data_unit['lokasi_text'];
-
-//            unset($data_id[$k]['created'])
+            $data_id[$key]['setor'] = $v['harga'];
+            unset($data_id[$k]['harga']);
         }
 
         return $this->response(1, 'Data Histori Marketing', [
@@ -304,7 +314,7 @@ class apiandroid extends Controller
                     $update->nama = $r->nama;
                     $update->save();
                 } else {
-                    return $this->response(0, 'Nama Sudah Tersedia', new \stdClass());
+                    return $this->response(0, 'Nama Sudah Tersedia', new stdClass());
                 }
             }
         }
@@ -315,7 +325,7 @@ class apiandroid extends Controller
                     $update->email = $r->email;
                     $update->save();
                 } else {
-                    return $this->response(0, 'Email Sudah Tersedia', new \stdClass());
+                    return $this->response(0, 'Email Sudah Tersedia', new stdClass());
                 }
             }
         }

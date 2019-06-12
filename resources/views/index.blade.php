@@ -64,19 +64,19 @@ License: You must have a valid license purchased only from themeforest(the above
                             Welcome, {{\Session::get('users')}}</h3>
                         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                             <li class="m-nav__item m-nav__item--home">
-                                <select class="form-control" id="bulan">
-                                    <option value="1">Januari</option>
-                                    <option value="2">Februari</option>
-                                    <option value="3">Maret</option>
-                                    <option value="4">April</option>
-                                    <option value="5">Mei</option>
-                                    <option value="6">Juni</option>
-                                    <option value="7">Juli</option>
-                                    <option value="8">Agustus</option>
-                                    <option value="9">September</option>
-                                    <option value="10">Oktober</option>
-                                    <option value="11">November</option>
-                                    <option value="12">Desember</option>
+                                <select class="form-control bulan" id="bulan">
+                                    <option value="1" {{date('m') == 1 ? "selected" : ""}}>Januari</option>
+                                    <option value="2" {{date('m') == 2 ? "selected" : ""}}>Februari</option>
+                                    <option value="3" {{date('m') == 3 ? "selected" : ""}}>Maret</option>
+                                    <option value="4" {{date('m') == 4 ? "selected" : ""}}>April</option>
+                                    <option value="5" {{date('m') == 5 ? "selected" : ""}}>Mei</option>
+                                    <option value="6" {{date('m') == 6 ? "selected" : ""}}>Juni</option>
+                                    <option value="7" {{date('m') == 7 ? "selected" : ""}}>Juli</option>
+                                    <option value="8" {{date('m') == 8 ? "selected" : ""}}>Agustus</option>
+                                    <option value="9" {{date('m') == 9 ? "selected" : ""}}>September</option>
+                                    <option value="10" {{date('m') == 10 ? "selected" : ""}}>Oktober</option>
+                                    <option value="11" {{date('m') == 11 ? "selected" : ""}}>November</option>
+                                    <option value="12" {{date('m') == 12 ? "selected" : ""}}>Desember</option>
                                 </select>
                             </li>
                             <li class="m-nav__separator">-</li>
@@ -108,22 +108,22 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 <!--Begin::Section-->
                 <div class="row">
-                    <div class="col-xl-6">
-                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text">
-                                            Total Sales
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <div id="chartsales" style="height: 500px;width: auto"></div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-xl-6">--}}
+{{--                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">--}}
+{{--                            <div class="m-portlet__head">--}}
+{{--                                <div class="m-portlet__head-caption">--}}
+{{--                                    <div class="m-portlet__head-title">--}}
+{{--                                        <h3 class="m-portlet__head-text">--}}
+{{--                                            Total Sales--}}
+{{--                                        </h3>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="m-portlet__body">--}}
+{{--                                <div id="chartsales" style="height: 500px;width: auto"></div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="col-xl-6">
                         <div class="m-portlet m-portlet--mobile  m-portlet--unair">
                             <div class="m-portlet__head">
@@ -144,22 +144,22 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-12" id="totalgroupunit">
-                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text">
-                                            Total Group Unit
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <div id="chartgroupunit" style="height: 500px;width: auto"></div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-xl-12" id="totalgroupunit">--}}
+{{--                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">--}}
+{{--                            <div class="m-portlet__head">--}}
+{{--                                <div class="m-portlet__head-caption">--}}
+{{--                                    <div class="m-portlet__head-title">--}}
+{{--                                        <h3 class="m-portlet__head-text">--}}
+{{--                                            Total Group Unit--}}
+{{--                                        </h3>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="m-portlet__body">--}}
+{{--                                <div id="chartgroupunit" style="height: 500px;width: auto"></div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="col-xl-12">
                         <div class="m-portlet m-portlet--mobile  m-portlet--unair">
                             <div class="m-portlet__head">
@@ -180,42 +180,42 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6" id="totaldp">
-                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text">
-                                            Total DP
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <div id="chartdp" style="height: 500px;width: auto"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text">
-                                            Total Commission
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
+{{--                    <div class="col-xl-6" id="totaldp">--}}
+{{--                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">--}}
+{{--                            <div class="m-portlet__head">--}}
+{{--                                <div class="m-portlet__head-caption">--}}
+{{--                                    <div class="m-portlet__head-title">--}}
+{{--                                        <h3 class="m-portlet__head-text">--}}
+{{--                                            Total DP--}}
+{{--                                        </h3>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="m-portlet__body">--}}
+{{--                                <div id="chartdp" style="height: 500px;width: auto"></div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-xl-6">--}}
+{{--                        <div class="m-portlet m-portlet--mobile  m-portlet--unair">--}}
+{{--                            <div class="m-portlet__head">--}}
+{{--                                <div class="m-portlet__head-caption">--}}
+{{--                                    <div class="m-portlet__head-title">--}}
+{{--                                        <h3 class="m-portlet__head-text">--}}
+{{--                                            Total Commission--}}
+{{--                                        </h3>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="m-portlet__body">--}}
 
-                                <!--begin: Datatable -->
-                                <div id="chartcommission" style="height: 500px;width: auto"></div>
+{{--                                <!--begin: Datatable -->--}}
+{{--                                <div id="chartcommission" style="height: 500px;width: auto"></div>--}}
 
-                                <!--end: Datatable -->
-                            </div>
-                        </div>
-                    </div>
+{{--                                <!--end: Datatable -->--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
 
                 <!--End::Section-->
@@ -251,25 +251,11 @@ License: You must have a valid license purchased only from themeforest(the above
     const base_url = window.location.origin+"/"
 </script>
 @include('theme.script')
-<script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <script src="{{asset('amcharts4/core.js')}}"></script>
 <script src="{{asset('amcharts4/charts.js')}}"></script>
 <script src="{{asset('amcharts4/themes/animated.js')}}"></script>
 <script src="{{asset('amcharts4/deps/pdfmake.js')}}"></script>
 <script src="{{asset('js/chart.js')}}"></script>
-{{--amchart metronic--}}
-{{--<script src="//www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/radar.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/pie.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/plugins/tools/polarScatter/polarScatter.min.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/plugins/export/export.min.js" type="text/javascript"></script>--}}
-{{--<script src="//www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>--}}
-
-<!--end::Global Theme Bundle -->
 </body>
 
 <!-- end::Body -->

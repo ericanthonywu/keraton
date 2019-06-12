@@ -4,7 +4,7 @@ mApp.blockPage({
     state: 'success',
     message: 'Please wait...'
 });
-$(window).bind('beforeunload', () =>{
+$(window).bind('beforeunload', () => {
     mApp.blockPage({
         overlayColor: '#000000',
         type: 'loader',
@@ -92,7 +92,7 @@ $(document).ready(function () {
                 title: "Konfirmasi",
                 data: "confirmation",
                 sClass: "text-center",
-                render: (t,e,a)=>{
+                render: (t, e, a) => {
                     return t ? `<a href="#" class="m-link btndetailuserbanner" data-id="${a.id}" data-toggle="modal" data-target="#detailuserbanner">Judul : ${t} <br> User : ${numberWithCommas(a.userkonfirmasi)}</a>` : "Tidak ada Konfirmasi"
                 }
             },
@@ -253,10 +253,10 @@ $(document).ready(function () {
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             ${a.edit ? `<a href="${base_url}unit/edit/${t}" class="dropdown-item" title="Perbarui Data">
                                 <i class="flaticon-notes"></i> Edit
-                            </a>`:""}
+                            </a>` : ""}
                             ${a.delete ? `<button class="dropdown-item btn-del" data-id="${t}" data-table="banner"><i class="flaticon-delete-1"></i> Delete </button>` : ""}
                                         </div>
-                    `:'&nbsp;';
+                    ` : '&nbsp;';
                 }
             },
         ],
@@ -453,7 +453,7 @@ $(document).ready(function () {
             },
             {
                 title: "Tanggal",
-                data:"tanggal_dibuat",
+                data: "tanggal_dibuat",
                 sClass: "text-center",
             },
             {
@@ -463,17 +463,17 @@ $(document).ready(function () {
                 render: (t, e, a) => {
                     switch (t) {
                         case 0:
-                            return "<span class='m-badge m-badge--warning m-badge--wide'> On progress</span>"
+                            return "<span class='m-badge m-badge--warning m-badge--wide'> On progress</span>";
                         case 1:
-                            return "<span class='m-badge m-badge--accent m-badge--wide'>Wawancara</span>"
+                            return "<span class='m-badge m-badge--accent m-badge--wide'>Wawancara</span>";
                         case 2:
-                            return "<span class='m-badge m-badge--brand m-badge--wide'>Akad</span>"
+                            return "<span class='m-badge m-badge--brand m-badge--wide'>Akad</span>";
                         case 3:
-                            return "<span class='m-badge m-badge--success m-badge--wide'>Selesai</span>"
+                            return "<span class='m-badge m-badge--success m-badge--wide'>Selesai</span>";
                         case 4:
-                            return "<span class='m-badge m-badge--warning m-badge--wide'>Tunda</span>"
+                            return "<span class='m-badge m-badge--warning m-badge--wide'>Tunda</span>";
                         case 5:
-                            return "<span class='m-badge m-badge--danger m-badge--wide'>Batal</span>"
+                            return "<span class='m-badge m-badge--danger m-badge--wide'>Batal</span>";
                         default:
                             return t
                     }
@@ -495,10 +495,10 @@ $(document).ready(function () {
             search: "Cari:",
             zeroRecords: "Tidak ada data yang cocok"
         },
-        'createdRow': ( row, data, dataIndex ) => {
+        'createdRow': (row, data, dataIndex) => {
             $(row).attr('data-toggle', 'modal');
             $(row).attr('data-target', '#detailtotalsales');
-            $(row).css('cursor','pointer')
+            $(row).css('cursor', 'pointer');
             $(row).addClass('detsales')
         },
 
@@ -648,9 +648,9 @@ $(document).ready(function () {
                 sClass: "text-center",
             },
             {
-                title:"Di buat oleh",
-                data:"dibuat_oleh",
-                sClass:"text-center",
+                title: "Di buat oleh",
+                data: "dibuat_oleh",
+                sClass: "text-center",
             },
             {
                 data: "id",
@@ -664,10 +664,10 @@ $(document).ready(function () {
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             ${a.edit ? `<a href="${base_url}message/edit/${t}" class="dropdown-item" title="Perbarui Data">
                                 <i class="flaticon-notes"></i> Edit
-                            </a>`:""}
+                            </a>` : ""}
                             ${a.delete ? `<button class="dropdown-item btn-del" data-id="${t}" data-table="message"><i class="flaticon-delete-1"></i> Delete </button>` : ""}
                                         </div>
-                    `:'Loading ... ';
+                    ` : 'Loading ... ';
                 }
             },
         ],
@@ -766,7 +766,7 @@ $(document).ready(function () {
                             ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
                              data-id="${t}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
-                            </button>`: ""}
+                            </button>` : ""}
                     `;
                 }
             }
@@ -872,7 +872,7 @@ $(document).ready(function () {
                             ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
                              data-id="${t}" data-table="admin" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
-                            </button>`:""}
+                            </button>` : ""}
                     `;
                 }
             }
@@ -972,7 +972,7 @@ $(document).ready(function () {
                 data: "profile_picture",
                 title: "Profil Marketing",
                 sClass: 'text-center',
-                render: (t,e,a) => {
+                render: (t, e, a) => {
                     return `${t ? `<a target="_blank" href="${base_url}uploads/marketing/${t}"><img width="100" src="${base_url}uploads/marketing/${t}" alt="profile picture marketing ${a.name}"></a>` : `marketing ${a.name} belum mengupload foto`}`
                 }
             },
@@ -991,7 +991,7 @@ $(document).ready(function () {
                             ${a.delete ? `<button type="button" class="btn btn-circle btn-danger btn-xs btn-data btn-del"
                              data-id="${t}" data-table="users" data-toggle="tooltip" data-placement="top" title="Hapus Data">
                                 <i class="flaticon-delete-1"></i>
-                            </button>`:""}
+                            </button>` : ""}
                     `;
                 }
             }
@@ -1122,7 +1122,7 @@ $(document).ready(function () {
 
     //----------tambah edit delete----------------------------
     $(document).on('submit', 'form', function (e) {
-        console.log('dapet')
+        console.log('dapet');
         e.preventDefault();
         const data = new FormData(this);
         const action = $(this).data('action');
@@ -1140,9 +1140,9 @@ $(document).ready(function () {
                     contentType: false,
                     processData: false,
                     success: res => {
-                        if(res){
+                        if (res) {
                             toastr.error(res, "Error");
-                        }else {
+                        } else {
                             $('button.close[data-dismiss="modal"]').click();
                         }
                     },
@@ -1150,10 +1150,10 @@ $(document).ready(function () {
                         console.log(typeof xhr.responseJSON === "undefined" ? xhr : xhr.responseJSON.message);
                     }
                 })
-            }else{
+            } else {
                 toastr.error("Password berbeda dengan konfirmasi", "Error");
             }
-        }else{
+        } else {
             $.ajax({
                 type: 'POST',
                 data: data,
@@ -1162,7 +1162,7 @@ $(document).ready(function () {
                 cache: false,
                 contentType: false,
                 processData: false,
-                beforeSend: xhr =>{
+                beforeSend: xhr => {
                     mApp.blockPage({
                         overlayColor: '#000000',
                         type: 'loader',
@@ -1173,12 +1173,12 @@ $(document).ready(function () {
                 },
                 success: res => {
                     mApp.unblockPage();
-                    if(res){
+                    if (res) {
                         toastr.error(res, "Error");
-                    }else {
+                    } else {
                         switch (action) {
                             case "users":
-                                tbladmin.ajax.reload()
+                                tbladmin.ajax.reload();
                                 tblmanager.ajax.reload();
                                 $('button.close[data-dismiss="modal"]').click();
                                 // location.reload();
@@ -1188,16 +1188,16 @@ $(document).ready(function () {
                                 tblmarketing.ajax.reload();
                                 break;
                             case "lokasiunit":
-                                tbllokasiunit.reload()
+                                tbllokasiunit.reload();
                                 $('#lokasi').val('');
                                 $('#btn-action-lokasiunit').val('Tambah');
                                 break;
                             case "unit_update":
                                 $('#close_modal').click();
-                                tblunit.reload()
+                                tblunit.reload();
                                 break;
                             case "unit_file":
-                                $('#tblunit_file').DataTable().ajax.reload()
+                                $('#tblunit_file').DataTable().ajax.reload();
                                 break;
                             default:
                                 location.href = base_url + action;
@@ -1241,55 +1241,68 @@ $(document).ready(function () {
         e.preventDefault();
         const table = $(this).data('table'),
             id = $(this).data('id');
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'POST',
-            data: {
-                id: id
-            },
-            url: `${base_url}delete/${table}`,
-            success: res => {
-                if (res) {
-                    toastr.error(res, "Error");
-                } else {
-                    switch (table) {
-                        case "admin":
-                            tbladmin.ajax.reload()
-                            tblmanager.ajax.reload();
-                            break;
-                        case "users":
-                            tblmarketing.ajax.reload();
-                            break;
-                        case "banner":
-                            tblbanner.ajax.reload();
-                            break;
-                        case "lokasi_unit":
-                            tbllokasiunit.reload();
-                            break;
-                        default:
-                            $('#tbl' + table).DataTable().ajax.reload();
-                            break;
-                    }
-                }
-            },
-            //TODO : Remove on Production
-            error: xhr => {
-                console.log(xhr.responseJSON.message)
-            }
+        swal({
+            title: `Apakah Anda yakin akan menghapus field ini? ?`,
+            text: "Jika anda menghapusnya, anda tidak akan bisa mengembalikkannya menjadi semula",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus aja',
+            cancelButtonText: 'Tidak, Batalkan!',
+            reverseButtons: true
         })
+            .then(conf => {
+                if (conf.value) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        url: `${base_url}delete/${table}`,
+                        success: res => {
+                            if (res) {
+                                toastr.error(res, "Error");
+                            } else {
+                                switch (table) {
+                                    case "admin":
+                                        tbladmin.ajax.reload();
+                                        tblmanager.ajax.reload();
+                                        break;
+                                    case "users":
+                                        tblmarketing.ajax.reload();
+                                        break;
+                                    case "banner":
+                                        tblbanner.ajax.reload();
+                                        break;
+                                    case "lokasi_unit":
+                                        tbllokasiunit.reload();
+                                        break;
+                                    default:
+                                        $('#tbl' + table).DataTable().ajax.reload();
+                                        break;
+                                }
+                            }
+                        },
+                        //TODO : Remove on Production
+                        error: xhr => {
+                            console.log(xhr.responseJSON.message)
+                        }
+                    })
+                }
+            });
     });
-    $(document).on('click','.btn-export',function (e) {
+    $(document).on('click', '.btn-export', function (e) {
         const data_export = $(this).data('export');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'POST',
-            url:`${base_url}export`,
-            data : {
-                data_export:data_export
+            url: `${base_url}export`,
+            data: {
+                data_export: data_export
             },
             //TODO : Remove on Production
             error: xhr => {
@@ -1298,3 +1311,4 @@ $(document).ready(function () {
         })
     })
 });
+

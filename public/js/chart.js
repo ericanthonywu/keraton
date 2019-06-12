@@ -1,91 +1,94 @@
+const bulan = $('#bulan').val();
+const tahun = $('#tahun').val();
+
 // Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-var chartcommission = am4core.create("chartcommission", am4charts.PieChart);
-
-// Add and configure Series
-var pieSeries = chartcommission.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "Total";
-pieSeries.dataFields.category = "Status";
-
-// Let's cut a hole in our Pie chart the size of 30% the radius
-chartcommission.innerRadius = am4core.percent(30);
-
-// Put a thick white border around each Slice
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-pieSeries.slices.template
-    // change the cursor on hover to make it apparent the object can be interacted with
-    .cursorOverStyle = [
-    {
-        "property": "cursor",
-        "value": "pointer"
-    }
-];
-var colorSet = new am4core.ColorSet();
-colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
-    return new am4core.color(color);
-});
-pieSeries.colors = colorSet;
-pieSeries.alignLabels = false;
-pieSeries.labels.template.bent = true;
-pieSeries.labels.template.radius = 3;
-pieSeries.labels.template.padding(0, 0, 0, 0);
-
-pieSeries.ticks.template.disabled = true;
-
-// Create a base filter effect (as if it's not there) for the hover to return to
-var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-shadow.opacity = 0;
-
-// Create hover state
-var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-// Slightly shift the shadow and make it more prominent on hover
-var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-hoverShadow.opacity = 0.7;
-hoverShadow.blur = 5;
-
-// Add a legend
-chartcommission.legend = new am4charts.Legend();
-
-chartcommission.dataSource.url = `${base_url}chart/dp/0/0`;
+// am4core.useTheme(am4themes_animated);
+// // Themes end
+//
+// // Create chart instance
+// var chartcommission = am4core.create("chartcommission", am4charts.PieChart);
+//
+// // Add and configure Series
+// var pieSeries = chartcommission.series.push(new am4charts.PieSeries());
+// pieSeries.dataFields.value = "Total";
+// pieSeries.dataFields.category = "Status";
+//
+// // Let's cut a hole in our Pie chart the size of 30% the radius
+// chartcommission.innerRadius = am4core.percent(30);
+//
+// // Put a thick white border around each Slice
+// pieSeries.slices.template.stroke = am4core.color("#fff");
+// pieSeries.slices.template.strokeWidth = 2;
+// pieSeries.slices.template.strokeOpacity = 1;
+// pieSeries.slices.template
+//     // change the cursor on hover to make it apparent the object can be interacted with
+//     .cursorOverStyle = [
+//     {
+//         "property": "cursor",
+//         "value": "pointer"
+//     }
+// ];
+// var colorSet = new am4core.ColorSet();
+// colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
+//     return new am4core.color(color);
+// });
+// pieSeries.colors = colorSet;
+// pieSeries.alignLabels = false;
+// pieSeries.labels.template.bent = true;
+// pieSeries.labels.template.radius = 3;
+// pieSeries.labels.template.padding(0, 0, 0, 0);
+//
+// pieSeries.ticks.template.disabled = true;
+//
+// // Create a base filter effect (as if it's not there) for the hover to return to
+// var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+// shadow.opacity = 0;
+//
+// // Create hover state
+// var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+//
+// // Slightly shift the shadow and make it more prominent on hover
+// var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+// hoverShadow.opacity = 0.7;
+// hoverShadow.blur = 5;
+//
+// // Add a legend
+// chartcommission.legend = new am4charts.Legend();
+//
+// chartcommission.dataSource.url = `${base_url}chart/dp/${bulan}/${tahun}`;
 
 //-----------------------------------------------------------------
 
-var chartgroupunit = am4core.create("chartgroupunit", am4charts.XYChart);
-
-chartgroupunit.dataSource.url = `${base_url}chart/groupunit/0/0`;
-
-chartgroupunit.padding(40, 40, 40, 40);
-
-var categoryAxis = chartgroupunit.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "Unit";
-categoryAxis.renderer.minGridDistance = 60;
-
-var valueAxis = chartgroupunit.yAxes.push(new am4charts.ValueAxis());
-
-var series = chartgroupunit.series.push(new am4charts.ColumnSeries());
-series.dataFields.categoryX = "Unit";
-series.dataFields.valueY = "visits";
-series.tooltipText = "{valueY.value}"
-series.columns.template.strokeOpacity = 0;
-
-chartgroupunit.cursor = new am4charts.XYCursor();
-
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function (fill, target) {
-    return chartgroupunit.colors.getIndex(target.dataItem.index);
-});
+// var chartgroupunit = am4core.create("chartgroupunit", am4charts.XYChart);
+//
+// chartgroupunit.dataSource.url = `${base_url}chart/groupunit/${bulan}/${tahun}`;
+//
+// chartgroupunit.padding(40, 40, 40, 40);
+//
+// var categoryAxis = chartgroupunit.xAxes.push(new am4charts.CategoryAxis());
+// categoryAxis.renderer.grid.template.location = 0;
+// categoryAxis.dataFields.category = "Unit";
+// categoryAxis.renderer.minGridDistance = 60;
+//
+// var valueAxis = chartgroupunit.yAxes.push(new am4charts.ValueAxis());
+//
+// var series = chartgroupunit.series.push(new am4charts.ColumnSeries());
+// series.dataFields.categoryX = "Unit";
+// series.dataFields.valueY = "visits";
+// series.tooltipText = "{valueY.value}";
+// series.columns.template.strokeOpacity = 0;
+//
+// chartgroupunit.cursor = new am4charts.XYCursor();
+//
+// // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+// series.columns.template.adapter.add("fill", function (fill, target) {
+//     return chartgroupunit.colors.getIndex(target.dataItem.index);
+// });
 //---------------------------------------------------------
 
 var chartkinerjasales = am4core.create("chartkinerjasales", am4charts.XYChart);
 
-chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales/0/0`;
+chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales/${bulan}/${tahun}`;
 
 chartkinerjasales.padding(40, 40, 40, 40);
 
@@ -99,7 +102,7 @@ var valueAxis = chartkinerjasales.yAxes.push(new am4charts.ValueAxis());
 var series = chartkinerjasales.series.push(new am4charts.ColumnSeries());
 series.dataFields.categoryX = "Sales";
 series.dataFields.valueY = "Total";
-series.tooltipText = "{valueY.value}"
+series.tooltipText = "{valueY.value}";
 series.columns.template.strokeOpacity = 0;
 
 chartkinerjasales.cursor = new am4charts.XYCursor();
@@ -114,56 +117,56 @@ series.columns.template.adapter.add("fill", (fill, target) => {
 // Themes end
 
 // Create chart instance
-var chartsales = am4core.create("chartsales", am4charts.PieChart);
-
-// Add and configure Series
-var pieSeries = chartsales.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "Total";
-pieSeries.dataFields.category = "Status";
-
-// Let's cut a hole in our Pie chart the size of 30% the radius
-chartsales.innerRadius = am4core.percent(30);
-
-// Put a thick white border around each Slice
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-pieSeries.slices.template
-    // change the cursor on hover to make it apparent the object can be interacted with
-    .cursorOverStyle = [
-    {
-        "property": "cursor",
-        "value": "pointer"
-    }
-];
-var colorSet = new am4core.ColorSet();
-colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
-    return new am4core.color(color);
-});
-pieSeries.colors = colorSet;
-pieSeries.alignLabels = false;
-pieSeries.labels.template.bent = true;
-pieSeries.labels.template.radius = 3;
-pieSeries.labels.template.padding(0, 0, 0, 0);
-
-pieSeries.ticks.template.disabled = true;
-
-// Create a base filter effect (as if it's not there) for the hover to return to
-var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-shadow.opacity = 0;
-
-// Create hover state
-var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-// Slightly shift the shadow and make it more prominent on hover
-var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-hoverShadow.opacity = 0.7;
-hoverShadow.blur = 5;
-
-// Add a legend
-chartsales.legend = new am4charts.Legend();
-
-chartsales.dataSource.url = `${base_url}chart/sales/0/0`;
+// var chartsales = am4core.create("chartsales", am4charts.PieChart);
+//
+// // Add and configure Series
+// var pieSeries = chartsales.series.push(new am4charts.PieSeries());
+// pieSeries.dataFields.value = "Total";
+// pieSeries.dataFields.category = "Status";
+//
+// // Let's cut a hole in our Pie chart the size of 30% the radius
+// chartsales.innerRadius = am4core.percent(30);
+//
+// // Put a thick white border around each Slice
+// pieSeries.slices.template.stroke = am4core.color("#fff");
+// pieSeries.slices.template.strokeWidth = 2;
+// pieSeries.slices.template.strokeOpacity = 1;
+// pieSeries.slices.template
+//     // change the cursor on hover to make it apparent the object can be interacted with
+//     .cursorOverStyle = [
+//     {
+//         "property": "cursor",
+//         "value": "pointer"
+//     }
+// ];
+// var colorSet = new am4core.ColorSet();
+// colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
+//     return new am4core.color(color);
+// });
+// pieSeries.colors = colorSet;
+// pieSeries.alignLabels = false;
+// pieSeries.labels.template.bent = true;
+// pieSeries.labels.template.radius = 3;
+// pieSeries.labels.template.padding(0, 0, 0, 0);
+//
+// pieSeries.ticks.template.disabled = true;
+//
+// // Create a base filter effect (as if it's not there) for the hover to return to
+// var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+// shadow.opacity = 0;
+//
+// // Create hover state
+// var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+//
+// // Slightly shift the shadow and make it more prominent on hover
+// var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+// hoverShadow.opacity = 0.7;
+// hoverShadow.blur = 5;
+//
+// // Add a legend
+// chartsales.legend = new am4charts.Legend();
+//
+// chartsales.dataSource.url = `${base_url}chart/sales/${bulan}/${tahun}`;
 //-----------------------------------
 // Themes begin
 
@@ -219,66 +222,72 @@ hoverShadow.blur = 5;
 // Add a legend
 chartstockunit.legend = new am4charts.Legend();
 
-chartstockunit.dataSource.url = `${base_url}chart/unit/0/0`;
+chartstockunit.dataSource.url = `${base_url}chart/unit/${bulan}/${tahun}`;
 //------------------------------------------------------
 // Themes begin
 
 // Themes end
 
 // Create chart instance
-var chartdp = am4core.create("chartdp", am4charts.PieChart);
-
-// Add and configure Series
-var pieSeries = chartdp.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "Total";
-pieSeries.dataFields.category = "Status";
-
-// Let's cut a hole in our Pie chart the size of 30% the radius
-chartdp.innerRadius = am4core.percent(30);
-
-// Put a thick white border around each Slice
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-pieSeries.slices.template
-    // change the cursor on hover to make it apparent the object can be interacted with
-    .cursorOverStyle = [
-    {
-        "property": "cursor",
-        "value": "pointer"
-    }
-];
-var colorSet = new am4core.ColorSet();
-colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
-    return new am4core.color(color);
-});
-pieSeries.colors = colorSet;
-pieSeries.alignLabels = false;
-pieSeries.labels.template.bent = true;
-pieSeries.labels.template.radius = 3;
-pieSeries.labels.template.padding(0, 0, 0, 0);
-
-pieSeries.ticks.template.disabled = true;
-
-// Create a base filter effect (as if it's not there) for the hover to return to
-var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-shadow.opacity = 0;
-
-// Create hover state
-var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-// Slightly shift the shadow and make it more prominent on hover
-var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-hoverShadow.opacity = 0.7;
-hoverShadow.blur = 5;
-
-// Add a legend
-chartdp.legend = new am4charts.Legend();
-
-chartdp.dataSource.url = `${base_url}chart/commission/0/0`;
+// var chartdp = am4core.create("chartdp", am4charts.PieChart);
+//
+// // Add and configure Series
+// var pieSeries = chartdp.series.push(new am4charts.PieSeries());
+// pieSeries.dataFields.value = "Total";
+// pieSeries.dataFields.category = "Status";
+//
+// // Let's cut a hole in our Pie chart the size of 30% the radius
+// chartdp.innerRadius = am4core.percent(30);
+//
+// // Put a thick white border around each Slice
+// pieSeries.slices.template.stroke = am4core.color("#fff");
+// pieSeries.slices.template.strokeWidth = 2;
+// pieSeries.slices.template.strokeOpacity = 1;
+// pieSeries.slices.template
+//     // change the cursor on hover to make it apparent the object can be interacted with
+//     .cursorOverStyle = [
+//     {
+//         "property": "cursor",
+//         "value": "pointer"
+//     }
+// ];
+// var colorSet = new am4core.ColorSet();
+// colorSet.list = ["#ff0900", "#32b9b3"].map(function (color) {
+//     return new am4core.color(color);
+// });
+// pieSeries.colors = colorSet;
+// pieSeries.alignLabels = false;
+// pieSeries.labels.template.bent = true;
+// pieSeries.labels.template.radius = 3;
+// pieSeries.labels.template.padding(0, 0, 0, 0);
+//
+// pieSeries.ticks.template.disabled = true;
+//
+// // Create a base filter effect (as if it's not there) for the hover to return to
+// var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+// shadow.opacity = 0;
+//
+// // Create hover state
+// var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+//
+// // Slightly shift the shadow and make it more prominent on hover
+// var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+// hoverShadow.opacity = 0.7;
+// hoverShadow.blur = 5;
+//
+// // Add a legend
+// chartdp.legend = new am4charts.Legend();
+// chartdp.dataSource.url = `${base_url}chart/commission/${bulan}/${tahun}`;
 
 document.querySelector('.btn-print').addEventListener('click', e => {
-    var ids = ["chartsales", "chartstockunit", 'chartgroupunit', 'chartkinerjasales', 'chartdp', 'chartcommission'];
+    var ids = [
+        // "chartsales",
+        "chartstockunit",
+        // 'chartgroupunit',
+        'chartkinerjasales',
+        // 'chartdp',
+        // 'chartcommission'
+    ];
     var chartsRemaining = ids.length;
 
     var exportOptions = {
@@ -288,7 +297,7 @@ document.querySelector('.btn-print').addEventListener('click', e => {
 
     ids.forEach(id => {
 
-        window[id].exporting.getImage("png", exportOptions).then(function (imgData) {
+        window[id].exporting.getImage("png", exportOptions).then(imgData => {
 
             // save image data to chart itself for later reference
             window[id].exportedImage = imgData;
@@ -297,7 +306,7 @@ document.querySelector('.btn-print').addEventListener('click', e => {
             chartsRemaining--;
 
             // Check if we got all of the charts
-            if (chartsRemaining == 0) {
+            if (chartsRemaining === 0) {
                 // Yup, we got all of them
                 // Let's proceed to putting PDF together
 
@@ -306,18 +315,18 @@ document.querySelector('.btn-print').addEventListener('click', e => {
                     "content": []
                 };
 
-                // add some text
-                layout.content.push({
-                    "text": "Chart Sales",
-                    "fontSize": 20,
-                    margin: [0, 20, 0, 15]
-                });
-
-                // add chart 1
-                layout.content.push({
-                    "image": chartsales.exportedImage,
-                    "fit": [523, 300]
-                });
+                // // add some text
+                // layout.content.push({
+                //     "text": "Chart Sales",
+                //     "fontSize": 20,
+                //     margin: [0, 20, 0, 15]
+                // });
+                //
+                // // add chart 1
+                // layout.content.push({
+                //     "image": chartsales.exportedImage,
+                //     "fit": [523, 300]
+                // });
 
                 // add another text
                 layout.content.push({
@@ -332,21 +341,21 @@ document.querySelector('.btn-print').addEventListener('click', e => {
                     "fit": [523, 300]
                 });
 
-                layout.content.push({
-                    "text": "",
-                    margin: [0,10,0,10]
-                });
-
-                layout.content.push({
-                    "text": "Chart Group Unit",
-                    "fontSize": 20,
-                    margin: [0, 20, 0, 15]
-                });
-
-                layout.content.push({
-                    "image": chartgroupunit.exportedImage,
-                    "fit": [523, 300]
-                });
+                // layout.content.push({
+                //     "text": "",
+                //     margin: [0, 10, 0, 10]
+                // });
+                //
+                // layout.content.push({
+                //     "text": "Chart Group Unit",
+                //     "fontSize": 20,
+                //     margin: [0, 20, 0, 15]
+                // });
+                //
+                // layout.content.push({
+                //     "image": chartgroupunit.exportedImage,
+                //     "fit": [523, 300]
+                // });
 
                 layout.content.push({
                     "text": "Chart Kinerja Sales",
@@ -359,38 +368,41 @@ document.querySelector('.btn-print').addEventListener('click', e => {
                     "fit": [523, 300]
                 });
 
-                layout.content.push({
-                    "text": "Chart DP",
-                    "fontSize": 20,
-                    margin: [0, 10, 0, 15]
-                });
-
-                layout.content.push({
-                    "image": chartdp.exportedImage,
-                    "fit": [523, 300]
-                });
-
-                layout.content.push({
-                    "text": "Chart Commission",
-                    "fontSize": 20,
-                    margin: [0, 20, 0, 15]
-                });
-
-                layout.content.push({
-                    "image": chartcommission.exportedImage,
-                    "fit": [523, 300]
-                });
+                // layout.content.push({
+                //     "text": "Chart DP",
+                //     "fontSize": 20,
+                //     margin: [0, 10, 0, 15]
+                // });
+                //
+                // layout.content.push({
+                //     "image": chartdp.exportedImage,
+                //     "fit": [523, 300]
+                // });
+                //
+                // layout.content.push({
+                //     "text": "Chart Commission",
+                //     "fontSize": 20,
+                //     margin: [0, 20, 0, 15]
+                // });
+                //
+                // layout.content.push({
+                //     "image": chartcommission.exportedImage,
+                //     "fit": [523, 300]
+                // });
 
                 // get pdfMake instance from v4 exporting
-                chartcommission.exporting.pdfmake.then(function (pdfMake) {
+
+                // chartcommission.exporting.pdfmake.then(async pdfMake => {
+                chartkinerjasales.exporting.pdfmake.then(async pdfMake => {
                     let today = new Date();
                     let dd = today.getDate();
-                    let mm = today.getMonth()+1; //As January is 0.
+                    let mm = today.getMonth() + 1; //As January is 0.
                     let yyyy = today.getFullYear();
 
-                    if(dd<10) dd='0'+dd;
-                    if(mm<10) mm='0'+mm;
-                    pdfMake.createPdf(layout).download(`Report ${yyyy}-${mm}-${dd}.pdf`);
+                    if (dd < 10) dd = '0' + dd;
+                    if (mm < 10) mm = '0' + mm;
+
+                    await pdfMake.createPdf(layout).download(`Report ${yyyy}-${mm}-${dd}.pdf`);
                 });
 
             }
@@ -398,25 +410,24 @@ document.querySelector('.btn-print').addEventListener('click', e => {
 
     });
 
-})
+});
 document.querySelector('#submit').addEventListener('click', e => {
-    const bulan = $('#bulan').val()
-    const tahun = $('#tahun').val()
-    chartcommission.dataSource.url = `${base_url}chart/dp/${bulan}/${tahun}`;
-    chartcommission.dataSource.load()
 
-    chartgroupunit.dataSource.url = `${base_url}chart/groupunit/${bulan}/${tahun}`;
-    chartgroupunit.dataSource.load()
+    // chartcommission.dataSource.url = `${base_url}chart/dp/${bulan}/${tahun}`;
+    // chartcommission.dataSource.load();
+    //
+    // chartgroupunit.dataSource.url = `${base_url}chart/groupunit/${bulan}/${tahun}`;
+    // chartgroupunit.dataSource.load();
 
     chartkinerjasales.dataSource.url = `${base_url}chart/kinerjasales/${bulan}/${tahun}`;
-    chartkinerjasales.dataSource.load()
+    chartkinerjasales.dataSource.load();
 
-    chartsales.dataSource.url = `${base_url}chart/sales/${bulan}/${tahun}`;
-    chartsales.dataSource.load()
+    // chartsales.dataSource.url = `${base_url}chart/sales/${bulan}/${tahun}`;
+    // chartsales.dataSource.load();
 
     chartstockunit.dataSource.url = `${base_url}chart/unit/${bulan}/${tahun}`;
-    chartstockunit.dataSource.load()
+    chartstockunit.dataSource.load();
 
-    chartdp.dataSource.url = `${base_url}chart/commission/${bulan}/${tahun}`;
-    chartdp.dataSource.load()
-})
+    // chartdp.dataSource.url = `${base_url}chart/commission/${bulan}/${tahun}`;
+    // chartdp.dataSource.load()
+});

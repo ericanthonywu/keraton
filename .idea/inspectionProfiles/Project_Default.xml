@@ -176,7 +176,11 @@
       <option name="m_ignoreLoopsWithoutConditions" value="false" />
     </inspection_tool>
     <inspection_tool class="ForLoopThatDoesntUseLoopVariableJS" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="FunctionNamingConventionJS" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="FunctionNamingConventionJS" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="m_regex" value="[a-z][A-Za-z]*" />
+      <option name="m_minLength" value="4" />
+      <option name="m_maxLength" value="32" />
+    </inspection_tool>
     <inspection_tool class="FunctionWithInconsistentReturnsJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="FunctionWithMultipleLoopsJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="FunctionWithMultipleReturnPointsJS" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -366,8 +370,14 @@
       <option name="m_limit" value="3" />
     </inspection_tool>
     <inspection_tool class="PackageJsonMismatchedDependency" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="ParameterNamingConventionJS" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="ParametersPerFunctionJS" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="ParameterNamingConventionJS" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="m_regex" value="[a-z][A-Za-z]*" />
+      <option name="m_minLength" value="1" />
+      <option name="m_maxLength" value="32" />
+    </inspection_tool>
+    <inspection_tool class="ParametersPerFunctionJS" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="m_limit" value="5" />
+    </inspection_tool>
     <inspection_tool class="PgSelectFromProcedureInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PhingDomInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="PhpAbstractStaticMethodInspection" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -523,7 +533,7 @@
     <inspection_tool class="SqlConstantConditionInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SqlDeprecateTypeInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SqlDerivedTableAliasInspection" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="SqlDialectInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="SqlDialectInspection" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SqlDropIndexedColumnInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SqlErrorHandlingInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="SqlGotoInspection" enabled="false" level="WARNING" enabled_by_default="false" />

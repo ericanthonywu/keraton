@@ -14,13 +14,12 @@
 Route::get('/', "page@welcome");
 Route::post('/login', "auth@login");
 Route::get('/logout', "auth@logout");
-Route::get('/command/{command}', function ($command) {
-    Artisan::call($command);
-});
+//
 Route::get('/invoice/{data}',"page@pdf");
 Route::view('/showinvoice',"pdf.tandaterima");
 Route::post('/getsession', 'auth@getsession');
 Route::post('/forgotpassword', "auth@forgotpassword");
+Route::get('/apk','page@apk');
 Route::middleware('authcheck')->group(function () {
     Route::post('/export','crud@export');
     Route::view('/dashboard', 'index');

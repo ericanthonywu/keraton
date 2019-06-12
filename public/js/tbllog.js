@@ -34,6 +34,7 @@ $(document).ready(function () {
                 
                             `)
                         no++
+
                         // $('#tbllog tbody').html(html)
                     })
 

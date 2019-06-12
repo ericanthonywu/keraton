@@ -45,4 +45,14 @@ $(document).ready(function () {
             return markup
         },
     })
+    $('.bulan').select2({
+        language: {
+            noResults: function () {
+                return 'Tidak ada bulan yang tersedia'
+            },
+        },
+        escapeMarkup: markup => {
+            return markup
+        },
+    })
 })

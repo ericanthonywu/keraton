@@ -73,8 +73,8 @@
 {{--<script src="{{asset('assets/vendors/waypoints/lib/jquery.waypoints.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/counterup/jquery.counterup.js')}}"></script>--}}
 {{--<script src="{{asset('assets/vendors/es6-promise-polyfill/promise.min.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.min.js')}}"></script>--}}
-{{--<script src="{{asset('assets/vendors/js/framework/components/plugins/base/sweetalert2.init.js')}}"></script>--}}
+<script src="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{asset('assets/vendors/js/framework/components/plugins/base/sweetalert2.init.js')}}"></script>
 <script src="{{asset('assets/vendors/custom/jquery-ui/jquery-ui.bundle.js')}}"></script>
 
 <!--end:: Global Optional Vendors -->

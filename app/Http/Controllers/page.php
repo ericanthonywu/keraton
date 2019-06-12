@@ -18,6 +18,12 @@ use Illuminate\Http\Request;
 
 class page extends Controller
 {
+    function apk(){
+        return response()->file(storage_path('apk/app-release.apk'),[
+            'Content-Type'=>'application/vnd.android.package-archive',
+            'Content-Disposition'=> 'attachment; filename="keraton.apk"',
+        ]);
+    }
     function welcome(){
         if(\Session::get('users') && \Session::get('level')) {
             return redirect('/dashboard');
@@ -153,12 +159,16 @@ class page extends Controller
     }
     function pdf($data){
         $data_sale = Sale::where('pdf_name',$data)->first();
-        $data_unit = Unit::find($data_sale['unit']);
-        $data_sale['nama_unit'] = $data_unit['nama'];
-        $data_sale['lokasi_unit'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'].", $data_unit[lokasi_text]";
-        $data_sale['harga_unit'] = "Rp. ".number_format($data_sale['harga']);
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.tandaterima',["data_sale"=>$data_sale]);
-        return $pdf->download('invoice.pdf');
+        if($data_sale) {
+            $data_unit = Unit::find($data_sale['unit']);
+            $data_sale['nama_unit'] = $data_unit['nama'];
+            $data_sale['lokasi_unit'] = LokasiUnit::find($data_unit['lokasi_fix'])['lokasi'] . ", $data_unit[lokasi_text]";
+            $data_sale['harga_unit'] = "Rp. " . number_format($data_sale['harga']);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadView('pdf.tandaterima', ["data_sale" => $data_sale]);
+            return $pdf->download('invoice.pdf');
+        }else{
+            return "Invoice telah di hapus";
+        }
     }
 }

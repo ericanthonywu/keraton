@@ -45,6 +45,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/vendors/metronic/css/styles.css')}}"  />
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.carousel.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/owl.carousel/dist/assets/owl.theme.green.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.min.css')}}"  />
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/demo/demo12/base/style.bundle.css')}}" />
 </head>
