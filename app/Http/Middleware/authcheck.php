@@ -18,7 +18,7 @@ class authcheck
         if(\Session::get('users') && \Session::get('level')) {
             return $next($request);
         }else{
-            return redirect('/');
+            return response()->view('error.404',[],404);
         }
     }
 }
