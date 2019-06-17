@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!--
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en">
 
 <!-- begin::Head -->
@@ -69,8 +57,22 @@ License: You must have a valid license purchased only from themeforest(the above
                         <form class="m-form m-form--state m-form--fit m-form--label-align-right" data-action="banner"
                               novalidate="novalidate">
                             {{csrf_field()}}
+
                             <input type="hidden" name="id" value="{{$data['id']}}">
                             <div class="m-portlet__body">
+                                @if(Session::get('level') === 3)
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12">Kepemilikan</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select name="created_by" id="" class="form-control created_by" required>
+                                                @foreach ($admin as $data_admin)
+                                                    <option value="{{$data_admin['id']}}" {{$data['created_by'] == $data_admin['id'] ? "selected" : ""}}>{{$data_admin['name']}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="m-form__help">Mohon Masukkan Kepemilikan Banner</span>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="form-group m-form__group row">
                                     <label class="col-form-label col-lg-3 col-sm-12">Nama Banner</label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">

@@ -91,6 +91,19 @@ License: You must have a valid license purchased only from themeforest(the above
                             {{csrf_field()}}
                             <input type="hidden" name="id" value="{{$data['id']}}">
                             <div class="m-portlet__body">
+                                @if(Session::get('level') === 3)
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12">Kepemilikan</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select name="created_by" id="" class="form-control created_by" required>
+                                                @foreach ($admin as $data_admin)
+                                                    <option value="{{$data_admin['id']}}" {{$data['created_by'] == $data_admin['id'] ? "selected" : ""}}>{{$data_admin['name']}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="m-form__help">Mohon Masukkan Kepemilikan Unit</span>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="form-group m-form__group row">
                                     <label class="col-form-label col-lg-3 col-sm-12">Nama Unit</label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">

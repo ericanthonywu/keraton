@@ -96,6 +96,12 @@ $(document).ready(function () {
                     return t ? `<a href="#" class="m-link btndetailuserbanner" data-id="${a.id}" data-toggle="modal" data-target="#detailuserbanner">Judul : ${t} <br> User : ${numberWithCommas(a.userkonfirmasi)}</a>` : "Tidak ada Konfirmasi"
                 }
             },
+
+            {
+                title: "Milik",
+                data: "dibuat_oleh",
+                sClass: "text-center",
+            },
             {
                 data: "id",
                 sClass: "text-center",
@@ -232,8 +238,8 @@ $(document).ready(function () {
                 }
             },
             {
-                title: "Dibuat Oleh",
-                data: "created_by",
+                title: "Milik",
+                data: "dibuat_oleh",
                 sClass: "text-center",
             },
             {

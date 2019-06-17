@@ -103,6 +103,7 @@ class jsontable extends Controller
         $no = 1;
         foreach ($data as $k => $v) {
             $data[$k]['no'] = $no;
+            $data[$k]['dibuat_oleh'] = Admin::find($v['created_by'])['name'];
             $data[$k]['DT_RowId'] = "row-" . $v['id'];
             $data[$k]['userkonfirmasi'] = count(BannerParticipant::whereBanner($v['id'])->get());
             $data[$k]['delete'] = \Session::get('level') == 3 ? true : false;
@@ -139,7 +140,7 @@ class jsontable extends Controller
         foreach ($data_unit as $k => $v) {
             $data_unit[$k]['no'] = $no;
             $data_unit[$k]['lokasi'] = LokasiUnit::find($v['lokasi_fix'])['lokasi'] . ", " . $v['lokasi_text'];
-            $data_unit[$k]['created_by'] = Admin::find($v['created_by'])['name'];
+            $data_unit[$k]['dibuat_oleh'] = Admin::find($v['created_by'])['name'];
             $data_unit[$k]['date_created'] = $v['created_at']->format('D, d M Y H:i');
             $data_unit[$k]['delete'] = \Session::get('level') == 3 ? true : false;
             $data_unit[$k]['edit'] = \Session::get('level') == 3 || \Session::get('users') == $v['created_by'] ? true : false;

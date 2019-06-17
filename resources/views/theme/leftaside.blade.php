@@ -62,13 +62,6 @@
                     <span class="m-menu__link-text">Manage Banner</span>
                 </a>
             </li>
-            @if(Session::get('level') == 3)
-            <li class="m-menu__item @if(Request::url() === url('/managerules')) m-menu__item--active @endif"
-                aria-haspopup="true" m-menu-link-redirect="1"><a href="{{url('/managerules')}}"
-                                                                 class="m-menu__link "><span
-                            class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-settings"></i><span
-                            class="m-menu__link-text">Manage Rules</span></a></li>
-            @endif
             <li class="m-menu__item @if(Request::url() === url('/unit')) m-menu__item--active @endif"
                 aria-haspopup="true" m-menu-link-redirect="1"><a href="{{url('/unit')}}"
                                                                  class="m-menu__link "><span

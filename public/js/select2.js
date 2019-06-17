@@ -55,4 +55,15 @@ $(document).ready(function () {
             return markup
         },
     })
+    $('.created_by').select2({
+        width: '100%',
+        language: {
+            noResults: function () {
+                return 'Tidak ada user yang tersedia'
+            },
+        },
+        escapeMarkup: markup => {
+            return markup
+        },
+    })
 })

@@ -250,6 +250,7 @@ class crud extends Controller
         $req = $r->all();
         $req['name_file'] = $file->getClientOriginalName();
         $req['file'] = $filename;
+        $req['created_by'] = Session::get('userID');
         $data = Banner::orderByDesc('order')->limit('1')->first();
         $req['order'] = $data['order'] ? (int)$data->order + 1 : 1;
         Banner::create($req);
@@ -274,6 +275,7 @@ class crud extends Controller
         $data->long = $r->long;
         $data->url = $r->url;
         $data->confirmation = $r->confirmation;
+        $data->created_by = $r->created_by;
         $data->save();
         return null;
     }
@@ -322,6 +324,7 @@ class crud extends Controller
             $data->lokasi_text = $r->lokasi_text;
             $data->harga = $r->harga;
             $data->description = $r->description;
+            $data->created_by = $r->created_by;
             $data->save();
         } else {
             return "Hanya Super Admin dan Pembuat yang boleh mengedit Unit ini";

@@ -34,11 +34,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereNameFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereCreatedBy($value)
  * @mixin \Eloquent
  * @property string|null $url
  * @property string|null $lat
  * @property string|null $long
  * @property int $order
+ * @property int $created_by
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereLat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereLong($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Banner whereOrder($value)
@@ -47,6 +49,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 class Banner extends Eloquent
 {
 	protected $table = 'banner';
+
+	protected $casts = [
+	    'order'=>'int',
+	    'created_by'=>'int',
+    ];
 
 	protected $fillable = [
 		'nama',
@@ -57,6 +64,7 @@ class Banner extends Eloquent
 		'long',
         'url',
 		'confirmation',
-        'order'
+        'order',
+        'created_by'
 	];
 }

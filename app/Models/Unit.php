@@ -44,7 +44,8 @@ class Unit extends Eloquent
 
     protected $casts = [
         'id' => 'int',
-        'lokasi_fix' => 'int'
+        'lokasi_fix' => 'int',
+        'created_by'=>'int'
     ];
 
 	protected $fillable = [

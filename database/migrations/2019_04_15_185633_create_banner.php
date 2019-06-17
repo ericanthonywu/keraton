@@ -23,6 +23,7 @@ class CreateBanner extends Migration
             $table->string('lat')->default('')->nullable();
             $table->string('long')->default('')->nullable();
             $table->string('confirmation')->default('')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->integer('order');
             $table->timestamps();
         });

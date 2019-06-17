@@ -28,10 +28,7 @@ class page extends Controller
         if(\Session::get('users') && \Session::get('level')) {
             return redirect('/dashboard');
         }else{
-            \Session::forget('users');
-            \Session::forget('level');
-            \Session::forget('userID');
-            \Session::forget('upline');
+            \Session::flush();
             return view('welcome');
         }
     }
@@ -39,7 +36,7 @@ class page extends Controller
         if(\Session::get('level') >= 3){
             return view('page.admin.admin.index');
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function manager(){
@@ -48,7 +45,7 @@ class page extends Controller
                 "admin"=>Admin::where('level',2)->get()
             ]);
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function marketing(){
@@ -57,7 +54,7 @@ class page extends Controller
                 "manager"=>Admin::where('level',1)->get()
             ]);
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function banner(){
@@ -77,7 +74,7 @@ class page extends Controller
                 "admin"=>Admin::all()
             ]);
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function tambah_unit(){
@@ -95,7 +92,7 @@ class page extends Controller
                 "lokasi"=>LokasiUnit::all(),
             ]);
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function tambah_message(){
@@ -130,7 +127,7 @@ class page extends Controller
                 "marketing"=>User::find($data['marketing'])['name']
             ]);
         }else{
-            return redirect()->back();
+            return response()->view('error.404',[],404);
         }
     }
     function trackmarketing(){
