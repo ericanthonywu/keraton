@@ -33,9 +33,7 @@ class jsontable extends Controller
     function manager()
     {
         if (\Session::get('level') == 3) {
-            $data = Admin::where([
-                "level" => 1,
-            ])->get();
+            $data = Admin::whereLevel(1)->get();
         } else {
             $data = Admin::where([
                 "level" => 1,

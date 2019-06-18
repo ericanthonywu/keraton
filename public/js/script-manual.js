@@ -211,7 +211,7 @@ $(document).ready(function () {
             text: "Jika anda menekan batal anda tidak akan bisa mengembalikkannya menjadi semula",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus aja',
+            confirmButtonText: 'Ya, Ganti',
             cancelButtonText: 'Tidak, Batalkan!',
             reverseButtons: true
         })
