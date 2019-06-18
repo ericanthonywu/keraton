@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\LokasiUnit;
 use App\Models\Logging;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,7 @@ class jsontable extends Controller
 
     function manager()
     {
-        if (\Session::get('level') == 3) {
+        if (\Session::get('level') == 3 || \Session::get('level') == 2) {
             $data = Admin::whereLevel(1)->get();
         } else {
             $data = Admin::where([
@@ -250,6 +251,7 @@ class jsontable extends Controller
         }
         foreach ($data_sale as $data) {
             $data_sale['dibuat_oleh'] = User::find($data_sale['created_by'])['name'];
+            $data_sale['tgll_konf'] = !$data['tgl_konf'] ? Carbon::parse($data['tgl_konf'])->format('d F Y') : "";
         }
         $data_foto_unit = UnitFile::where('unitID', $data_unit['id'])->get();
         return response()->json([

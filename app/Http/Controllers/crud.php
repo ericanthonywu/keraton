@@ -299,16 +299,18 @@ class crud extends Controller
         unset($req['foto']);
         $req['created_by'] = (int)Session::get('userID');
         $id = Unit::create($req)->id;
-        $file = $r->file('foto');
-        foreach ($file as $foto) {
-            $filename = str_replace(' ', '_', Session::get('users')) . "_" . Str::random(10) . time() . "." . $foto->getClientOriginalExtension();
-            Storage::disk('unit')->put($filename, File::get($foto));
-            $data = UnitFile::orderByDesc('order')->limit('1')->first();
-            $unit = new UnitFile();
-            $unit->unitID = $id;
-            $unit->image = $filename;
-            $unit->order = $data['order'] ? (int)$data->order + 1 : 1;
-            $unit->save();
+        if($r->hasFile('foto')) {
+            $file = $r->file('foto');
+            foreach ($file as $foto) {
+                $filename = str_replace(' ', '_', Session::get('users')) . "_" . Str::random(10) . time() . "." . $foto->getClientOriginalExtension();
+                Storage::disk('unit')->put($filename, File::get($foto));
+                $data = UnitFile::orderByDesc('order')->limit('1')->first();
+                $unit = new UnitFile();
+                $unit->unitID = $id;
+                $unit->image = $filename;
+                $unit->order = $data['order'] ? (int)$data->order + 1 : 1;
+                $unit->save();
+            }
         }
         $this->log(" create unit <b>$r->nama</b> ");
         return null;
@@ -443,12 +445,30 @@ class crud extends Controller
 //        $this->sendsms($sale['nohp'],$pesan);
         switch ($r->status) {
             case 1:
+                if(!$r->tanggal && !$r->waktu && !$r->tempat && !$r->waktu){
+                    return "Ada inputan yg kosong";
+                }
                 $pesan = "Hi, $sale[nama], jadwal wawancara : $r->tanggal pukul $r->waktu di $r->tempat info lebih lanjut : $r->nohp";
                 $this->sendsms($sale['nohp'],$pesan);
+                Sale::where('sales_id', $r->id)->update([
+                    "tgl_konf"=>Carbon::parse($r->tanggal)->format('Y-m-d'),
+                    "jam_konf"=>$r->waktu,
+                    "tempat_konf"=>$r->tempat,
+                    "no_konf"=>$r->nohp,
+                ]);
                 break;
             case 2:
+                if(!$r->tanggal && !$r->waktu && !$r->tempat && !$r->waktu){
+                    return "Ada inputan yg kosong";
+                }
                 $pesan = "Hi, $sale[nama], jadwal akad kredit : $r->tanggal pukul $r->waktu di $r->tempat info lebih lanjut : $r->nohp";
                 $this->sendsms($sale['nohp'],$pesan);
+                Sale::where('sales_id', $r->id)->update([
+                    "tgl_konf"=>Carbon::parse($r->tanggal)->format('Y-m-d'),
+                    "jam_konf"=>$r->waktu,
+                    "tempat_konf"=>$r->tempat,
+                    "no_konf"=>$r->nohp,
+                ]);
                 break;
             case 3:
                 break;

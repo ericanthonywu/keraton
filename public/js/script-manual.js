@@ -168,6 +168,19 @@ $(document).ready(function () {
                 $('#detailtotalsales .modal-body #foto-spt').attr("src", sale.fotospt ? base_url + "uploads/spt/" + sale.fotospt : "")
                     .closest('a').attr('href', sale.fotospt ? base_url + "uploads/spt/" + sale.fotospt : "#");
 
+                if (sale.status == 1) {
+                    $('#tgl_wwc').val(sale.tgll_konf).prop('readonly', true);
+                    $('#waktu_wwc').val(sale.jam_konf).prop('readonly', true);
+                    $('#tempat_wwc').val(sale.tempat_konf).prop('readonly', true);
+                    $('#nohp_wwc').val(sale.no_konf).prop('readonly', true);
+                    $("#wawancara").prop('disabled', true)
+                } else if (sale.status == 2) {
+                    $('#tgl_akad').val(sale.tgll_konf).prop('readonly', true);
+                    $('#waktu_akad').val(sale.jam_konf).prop('readonly', true);
+                    $('#tempat_akad').val(sale.tempat_konf.prop('readonly', true));
+                    $('#nohp_akad').val(sale.no_konf).prop('readonly', true);
+                    $("#akad").prop('disabled', true)
+                }
 
                 unit_file.forEach(o => {
                     $('#detailtotalsales .modal-body #fotounit')
@@ -189,75 +202,90 @@ $(document).ready(function () {
         const id = $(this).data('id');
         const status = $(this).data('status');
         let catatan;
-        switch (status) {
-            case 1:
-                catatan = "Wawancara";
-                break;
-            case 2:
-                catatan = "Akad";
-                break;
-            case 3:
-                catatan = "Selesai";
-                break;
-            case 4:
-                catatan = "Tunda";
-                break;
-            case 5:
-                catatan = "Batal";
-                break
-        }
-        swal({
-            title: `Apakah Anda yakin akan mengubah status sale ini menjadi ${catatan} ?`,
-            text: "Jika anda menekan batal anda tidak akan bisa mengembalikkannya menjadi semula",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, Ganti',
-            cancelButtonText: 'Tidak, Batalkan!',
-            reverseButtons: true
-        })
-            .then( conf => {
-                if (conf.value) {
-                    let data;
-                    switch (status) {
-                        case 1:
-                            data = $('form#wawancara').serialize() + `&id=${id}&status=${status}`;
-                            break;
-                        case 2:
-                            data = $('form#akad').serialize() + `&id=${id}&status=${status}`;
-                            break;
-                        default:
-                            data = {
-                                id: id,
-                                status: status
-                            };
-                            break;
-                    }
-
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'POST',
-                        data: data,
-                        url: `${base_url}action/proceedsales`,
-                        success: res => {
-                            if (res) {
-                                toastr.error(res, 'Error')
-                            } else {
-                                $('button[data-dismiss="modal"]').click();
-                                $('#tblsale').DataTable().ajax.reload()
-                            }
-                        },
-                        error: xhr => {
-                            console.log(xhr.responseJSON.message);
-                            toastr.error(xhr.responseJSON.message, 'Error')
-                        }
-                    })
-                } else {
-                    swal("Sale dibatalkan");
+        if (status === 1 && (!$('#tgl_wwc').val() && !$('#waktu_wwc').val() && !$('#tempat_wwc').val() && !$('#nohp_wwc').val())) {
+            swal({
+                title: `Ada inputan yang kosong`,
+                type: 'warning',
+            })
+        } else {
+            if (status === 2 && (!$('#tgl_akad').val() && !$('#waktu_akad').val() && !$('#tempat_akad').val() && !$('#nohp_akad').val())) {
+                swal({
+                    title: `Ada inputan yang kosong`,
+                    type: 'warning',
+                })
+            } else {
+                switch (status) {
+                    case 1:
+                        catatan = "Wawancara";
+                        break;
+                    case 2:
+                        catatan = "Akad";
+                        break;
+                    case 3:
+                        catatan = "Selesai";
+                        break;
+                    case 4:
+                        catatan = "Tunda";
+                        break;
+                    case 5:
+                        catatan = "Batal";
+                        break
                 }
-            });
+                swal({
+                    title: `Apakah Anda yakin akan mengubah status sale ini menjadi ${catatan} ?`,
+                    text: "Jika anda menekan batal anda tidak akan bisa mengembalikkannya menjadi semula",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Ganti',
+                    cancelButtonText: 'Tidak, Batalkan!',
+                    reverseButtons: true
+                })
+                    .then(conf => {
+                        if (conf.value) {
+                            let data;
+                            switch (status) {
+                                case 1:
+                                    data = $('form#wawancara').serialize() + `&id=${id}&status=${status}`;
+                                    break;
+                                case 2:
+                                    data = $('form#akad').serialize() + `&id=${id}&status=${status}`;
+                                    break;
+                                default:
+                                    data = {
+                                        id: id,
+                                        status: status
+                                    };
+                                    break;
+                            }
+
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                type: 'POST',
+                                data: data,
+                                url: `${base_url}action/proceedsales`,
+                                success: res => {
+                                    if (res) {
+                                        toastr.error(res, 'Error')
+                                    } else {
+                                        $('button[data-dismiss="modal"]').click();
+                                        $('#tblsale').DataTable().ajax.reload()
+                                    }
+                                },
+                                error: xhr => {
+                                    console.log(xhr.responseJSON.message);
+                                    toastr.error(xhr.responseJSON.message, 'Error')
+                                }
+                            })
+                        }
+                    });
+            }
+        }
+    });
+    $('#pilihsemua').change(function () {
+        $('.marketing').prop('checked', $(this).is(':checked'))
     });
     $('.aksisales').tooltip();
-
 });
+

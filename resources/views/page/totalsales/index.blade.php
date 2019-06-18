@@ -154,16 +154,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <div class="col-lg-2">
                                                         <form id="wawancara">
                                                             <div class="form-group">
-                                                                <input name="tanggal" placeholder="Tanggal Wawancara" class="form-control m-input datepick">
+                                                                <input name="tanggal" id="tgl_wwc" placeholder="Tanggal Wawancara" class="form-control m-input datepick">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="waktu" placeholder="Waktu Wawancara" type="text" class="form-control m-input timepick">
+                                                                <input name="waktu" id="waktu_wwc" placeholder="Waktu Wawancara" type="text" class="form-control m-input timepick">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="tempat" type="text" placeholder="Tempat Wawancara" class="form-control m-input">
+                                                                <input name="tempat" id="tempat_wwc" type="text" placeholder="Tempat Wawancara" class="form-control m-input">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="nohp" placeholder="No Hp yg di hub" type="text" class="form-control m-input number">
+                                                                <input name="nohp" id="nohp_wwc" placeholder="No Hp yg di hub" type="text" class="form-control m-input number">
                                                             </div>
                                                             <button type="button" class="btn btn-accent aksisales"
                                                                     data-toggle="tooltip" title="Wawancara"
@@ -176,16 +176,16 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                                         <form id="akad">
                                                             <div class="form-group">
-                                                                <input name="tanggal" placeholder="Tanggal Akad" class="form-control m-input datepick">
+                                                                <input name="tanggal" id="tgl_akad" placeholder="Tanggal Akad" class="form-control m-input datepick">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="waktu" placeholder="Waktu Akad" type="text" class="form-control m-input timepick">
+                                                                <input name="waktu" id="waktu_akad" placeholder="Waktu Akad" type="text" class="form-control m-input timepick">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="tempat" type="text" placeholder="Tempat Akad" class="form-control m-input">
+                                                                <input name="tempat" id="tempat_akad" type="text" placeholder="Tempat Akad" class="form-control m-input">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input name="nohp" placeholder="No Hp yg di hub" type="text" class="form-control m-input number">
+                                                                <input name="nohp" id="nohp_akad" placeholder="No Hp yg di hub" type="text" class="form-control m-input number">
                                                             </div>
                                                             <button type="button" class="btn btn-brand aksisales"
                                                                     data-toggle="tooltip" title="Akad" data-status="2"

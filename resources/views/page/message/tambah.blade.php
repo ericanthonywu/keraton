@@ -77,10 +77,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="m-checkbox-list">
                                             @foreach($marketing as $data_marketing)
                                                 <label class="m-checkbox m-checkbox--check-bold m-checkbox--state-brand">
-                                                    <input type="checkbox" name="marketing[]" value="{{$data_marketing['id']}}"> {{$data_marketing['name']}}
+                                                    <input type="checkbox" class="marketing" name="marketing[]" value="{{$data_marketing['id']}}"> {{$data_marketing['name']}}
                                                     <span></span>
                                                 </label>
                                             @endforeach
+                                                <br />
+                                                <label class="m-checkbox m-checkbox--check-bold m-checkbox--state-brand">
+                                                    <input type="checkbox" id="pilihsemua"> Pilih Semua
+                                                    <span></span>
+                                                </label>
                                         </div>
                                     </div>
                                 </div>

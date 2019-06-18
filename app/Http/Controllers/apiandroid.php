@@ -91,6 +91,21 @@ class apiandroid extends Controller
         $req = $r->all();
         $data = Banner::orderBy('order', 'asc')->get();
         foreach ($data as $key => $data_banner) {
+            if (is_null($data[$key]['confirmation'])) {
+                $data[$key]['confirmation'] = "";
+            }
+            if (is_null($data[$key]['phone'])) {
+                $data[$key]['phone'] = "";
+            }
+            if (is_null($data[$key]['url'])) {
+                $data[$key]['url'] = "";
+            }
+            if (is_null($data[$key]['lat'])) {
+                $data[$key]['lat'] = "";
+            }
+            if (is_null($data[$key]['long'])) {
+                $data[$key]['long'] = "";
+            }
             $data[$key]['imgUrl'] = $this->Image("banner", "$data_banner[file]");
         }
         $datatoken = Token::where("token_old", $req['apiKey'])->orWhere('token_new', $req['apiKey'])->first();
@@ -161,6 +176,7 @@ class apiandroid extends Controller
         $check = Sale::where('id', $r->salesid)->exists();
         if (!$check) {
             $data_token = Token::where("token_old", $req['apiKey'])->orWhere('token_new', $req['apiKey'])->get();
+            unset($req['apiKey']);
             $req['created_by'] = $data_token[0]['user'];
             $arrfile = ['ktp', 'ktppasangan', 'konsumen', 'pasangan', 'npwp', 'gaji', 'kerja', 'spt'];
             for ($x = 0; $x < count($arrfile); $x++) {
@@ -168,7 +184,6 @@ class apiandroid extends Controller
                     $req["foto$arrfile[$x]"] = $this->insertimage($arrfile[$x], "foto$arrfile[$x]", $r);
                 }
             }
-            unset($req['apiKey']);
             $req['id'] = $r->salesid;
             $req['pdf_name'] = md5(bcrypt($r->nama . "_" . Str::random(10) . time()));
             $namaunit = Unit::find($r->unit)['name'];
@@ -177,17 +192,16 @@ class apiandroid extends Controller
             unset($req['setor']);
             $req['harga'] = $r->setor;
             $id = Sale::create($req);
+            $this->sendsms($id['nohp'], "Hi, $r->nama, Berikut ini bukti tanda terima Anda, silahkan unduh link ini : " . url("invoice/$pdf"));
+            Sale::find($r->salesid)->update([
+                "pdf_name" => $pdf
+            ]);
             foreach ($id as $v) {
                 for ($x = 0; $x < count($arrfile); $x++) {
                     $id["urlfoto$arrfile[$x]"] = $id["foto$arrfile[$x]"] ? url("uploads/$arrfile[$x]/" . $id["foto$arrfile[$x]"]) : null;
                 }
                 if (!$v['fotoktp'] || !$v['fotoktppasangan'] || !$v['fotokonsumen'] || !$v['fotogaji'] || !$v['fotopasangan'] || !$v['fotonpwp'] || !$v['fotokerja'] || !$v['fotospt']) {
                     $data_id['status'] = -1;
-                } else if ($v['fotoktp'] && $v['fotoktppasangan'] && $v['fotokonsumen'] && $v['fotopasangan'] && $v['fotonpwp'] && $v['fotokerja'] && $v['fotospt'] && $v['harga'] && $v['email'] && $v['nohp'] && $v['nama']) {
-                    $this->sendsms($v['nohp'], "Hi, $r->nama, Berikut ini bukti tanda terima Anda, silahkan unduh link ini : " . url("invoice/$pdf"));
-                    Sale::find($id['id'])->update([
-                        "pdf_name" => $pdf
-                    ]);
                 } else {
                     $data_id['status'] = $v['status'];
                 }
@@ -258,8 +272,7 @@ class apiandroid extends Controller
             for ($x = 0; $x < count($arrfile); $x++) {
                 unset($data_id[$key]["foto$arrfile[$x]"]);
             }
-
-            if (!$v['urlfotoktp'] || !$v['urlfotoktppasangan'] || !$v['urlfotokonsumen'] || !$v['urlfotopasangan'] || !$v['urlfotonpwp'] || !$v['urlfotokerja'] || !$v['urlfotospt']) {
+            if ($v['status'] == 0 && (!$v['urlfotoktp'] || !$v['urlfotoktppasangan'] || !$v['urlfotokonsumen'] || !$v['urlfotopasangan'] || !$v['urlfotonpwp'] || !$v['urlfotokerja'] || !$v['urlfotospt'])) {
                 $data_id[$key]['status'] = -1;
             } else {
                 $data_id[$key]['status'] = $v['status'];

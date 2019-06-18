@@ -88,6 +88,10 @@ class Sale extends Eloquent
         'status',
         'pdf_name',
         'harga',
+        'tgl_konf',
+        'jam_konf',
+        'tempat_konf',
+        'no_konf',
         'created_by'
 	];
 }
