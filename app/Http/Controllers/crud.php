@@ -339,7 +339,7 @@ class crud extends Controller
         $filename = str_replace(' ', '_', Session::get('users')) . "_" . Str::random(10) . time() . "." . $file->getClientOriginalExtension();
         $data_order = UnitFile::orderByDesc('order')->limit('1')->first();
         $data = Unit::find($r->unitID);
-        if (Session::get('level') == 3 && Session::get('userID') == $data['created_by']) {
+        if (Session::get('level') == 3 || Session::get('userID') == $data['created_by']) {
             Storage::disk('unit')->put($filename, File::get($file));
 
             $data = new UnitFile();

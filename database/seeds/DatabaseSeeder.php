@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             "name"=>"tes",
             "email"=>"tes@tes.com",
-            "password"=>bcrypt('tes')
+            "password"=>bcrypt('tes'),
         ]);
         DB::table('admin')->insert([
             "name"=>"Super Admin",

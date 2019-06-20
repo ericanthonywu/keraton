@@ -19,7 +19,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::view('/showinvoice', "pdf.tandaterima");
     Route::post('/getsession', 'auth@getsession');
     Route::post('/forgotpassword', "auth@forgotpassword");
-    Route::get('/apk', 'page@apk');
+    Route::get('/apk/1', 'page@apk');
     Route::middleware('authcheck')->group(function () {
         Route::post('/export', 'crud@export');
         Route::view('/dashboard', 'index');

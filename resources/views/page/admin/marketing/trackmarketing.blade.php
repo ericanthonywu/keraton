@@ -74,6 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                        checked> {{$data_marketing['name']}}
                                                 <span></span>
                                             </label>
+                                            &nbsp;
                                         @endforeach
                                     </form>
                                 </div>
